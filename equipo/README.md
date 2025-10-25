@@ -20,19 +20,19 @@ La siguiente tabla es un ejemplo, deben completarla con los roles reales que asu
 ## Distribución de Módulos
 
 ### Módulo de Estudiante
-- **Responsable**: []
+- **Responsable**: [Aguirre Nahuel]
 - **Tareas**: Funciones CRUD - Algoritmos de busqueda - Conexion de modulos
 
 ### Módulo de Materias
-- **Responsable**: []  
+- **Responsable**: [Castañeda Rodrigo]  
 - **Tareas**: Funciones CRUD - Algoritmos de busqueda - Conexion de modulos
 
 ### Módulo de Carreras de Grado
-- **Responsable**: []
+- **Responsable**: [Arbo Milena]
 - **Tareas**: Funciones CRUD - Algoritmos de busqueda - Conexion de modulos
 
 ### Módulo de Estadísticas
-- **Responsable**: []
+- **Responsable**: [Piancatelli Hernan]
 - **Tareas**: Algoritmos de busqueda - Conexion de modulos - analisis de datos
 
 ### Módulo de Interfaz
