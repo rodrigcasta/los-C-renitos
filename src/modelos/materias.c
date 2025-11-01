@@ -2,12 +2,11 @@
 
 #include  <stdlib.h>
 
-typedef struct Materias {
+typedef struct Materia {
     int ID;
-    double nota;
+    char nombre[50];
     //puntero a la head de mi doublelinkedlist
-    struct Estudiantes *listaDeEstudiantes;
-    int size;
-}Materias;
+    DoubleLinkedNode *listaEstudiante;
+}Materia;
 
     
