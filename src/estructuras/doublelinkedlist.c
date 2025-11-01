@@ -58,11 +58,11 @@ DoubleLinkedNode *FindElement(DoubleLinkedNode *head, int posicion) {
 } // La complejidad de la funcion es O(n) debido al recorrido hasta la posicion indicada.
 
 
-void Remove(DoubleLinkedNode **head, int posicion){
+void *RemoveElement(DoubleLinkedNode **head, int posicion){
     
-    DoubleLinkedNode *current = *head;
+DoubleLinkedNode *current = *head;
     if (current == NULL || posicion < 0) {
-        return;
+        return NULL; // Retorna NULL si no se puede eliminar
     }
 
     for (int i = 0; current != NULL && i < posicion; i++) {
@@ -70,20 +70,24 @@ void Remove(DoubleLinkedNode **head, int posicion){
     }
 
     if (current == NULL) {
-        return; 
+        return NULL; // Retorna NULL si la posición es inválida
     }
     
+    // Desvincular el nodo
     if (current->prev != NULL) {
         current->prev->next = current->next;
     } else {
-        *head = current->next;
+        *head = current->next; // El nodo a eliminar es la cabeza
     }
 
     if (current->next != NULL) {
         current->next->prev = current->prev;
     }
+    
+    void *data_to_return = current->data; // Guarda el puntero a los datos
+    free(current); // Libera SOLO el nodo
 
-    free(current);
+    return data_to_return; // Retorna los datos (la Materia *)
 } // la complejidad de la funcion es O(n) debido al recorrido hasta la posicion indicada.
 
 void printList(DoubleLinkedNode *head) {

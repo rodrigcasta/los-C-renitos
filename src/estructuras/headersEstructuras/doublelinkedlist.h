@@ -14,7 +14,7 @@ DoubleLinkedNode *newDoublyLinkedList();
 DoubleLinkedNode *addElement(DoubleLinkedNode *head, void *data); 
 int SizeList(DoubleLinkedNode *head);
 DoubleLinkedNode *FindElement(DoubleLinkedNode *head, int posicion);
-void Remove(DoubleLinkedNode **head, int posicion);
+void *RemoveElement(DoubleLinkedNode **head, int posicion);
 void printList(DoubleLinkedNode *head);
 
 #endif
