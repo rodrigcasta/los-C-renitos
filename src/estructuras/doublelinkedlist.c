@@ -7,7 +7,7 @@ typedef struct DoubleLinkedNode {
     struct DoubleLinkedNode *next;
 } DoubleLinkedNode;
 
-DoubleLinkedNode *newDoublyLinkedList(){
+DoubleLinkedNode *newDoubleLinkedList(){
     return NULL;
 }
 
