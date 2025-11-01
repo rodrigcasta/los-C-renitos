@@ -1,17 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-typedef struct DoubleLinkedNode {
-    void *data;
-    struct DoubleLinkedNode *prev;
-    struct DoubleLinkedNode *next;
-} DoubleLinkedNode;
+#include "../estructuras/headersEstructuras/doublelinkedlist.h" 
 
 DoubleLinkedNode *newDoublyLinkedList(){
     return NULL;
 }
 
-DoubleLinkedNode *addElement(DoubleLinkedNode *head, int data) {
+DoubleLinkedNode *addElement(DoubleLinkedNode *head, void *data) {
     DoubleLinkedNode *newNode = malloc(sizeof(DoubleLinkedNode));
     if (newNode == NULL) {
         return head; 
