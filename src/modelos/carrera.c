@@ -1,67 +1,35 @@
 #include <stdio.h>
-#include <string.h> // strcmp, strcpy
+#include <string.h>
+#include "gestorMaterias.h"  // donde está definida Materia, GestorMaterias, etc.
+#include "estudiantes.h"     // donde está Estudiante y sus funciones
 
-// ----- Definición de las estructuras -----
-typedef struct {
-    char nombre[50];
-    int edad;
-    char carrera[50];
-} Estudiante;
+// Filtrar estudiantes por MATERIA y SEXO (0 = hombre, 1 = mujer)
+void FiltrarEstudiantesPorMateriaYSexo(GestorMaterias *gestor, int idMateria, int sexoBuscado) {
 
-typedef struct {
-    char estudianteNombre[50];
-    char materiaNombre[50];
-    int nota;
-} Inscripcion;
-
-// ----- Tu función: filtrar estudiantes por materia y carrera -----
-void filtrarEstudiantesPorMateriaYCarrera(
-    char materiaBuscada[50],
-    char carreraBuscada[50],
-    Estudiante estudiantes[],
-    int cantEst,
-    Inscripcion inscripciones[],
-    int cantIns
-) {
-    printf("\nEstudiantes de la materia '%s' en la carrera '%s':\n",
-           materiaBuscada, carreraBuscada);
-
-    // Recorremos todas las inscripciones
-    for(int i = 0; i < cantIns; i++) {
-
-        // Si la inscripción corresponde a la materia buscada
-        if(strcmp(inscripciones[i].materiaNombre, materiaBuscada) == 0) {
-
-            // Buscar el estudiante correspondiente a la inscripción
-            for(int j = 0; j < cantEst; j++) {
-                if(strcmp(estudiantes[j].nombre, inscripciones[i].estudianteNombre) == 0 &&
-                   strcmp(estudiantes[j].carrera, carreraBuscada) == 0) {
-
-                    // Si coincide nombre y carrera, lo mostramos
-                    printf("- %s (edad: %d)\n", estudiantes[j].nombre, estudiantes[j].edad);
-                }
-            }
-        }
+    // 1. Buscar la materia por ID
+    Materia *materia = BuscarMateriaPorID(gestor, idMateria);
+    if (materia == NULL) {
+        printf("No se encontró la materia con ID %d\n", idMateria);
+        return;
     }
-}
 
-// ----- Ejemplo de uso -----
-int main() {
-    Estudiante estudiantes[3] = {
-        {"Milena Arbo", 22, "Licenciatura en Sistemas"},
-        {"Juan Perez", 21, "Ingenieria Informatica"},
-        {"Ana Gomez", 23, "Licenciatura en Sistemas"}
-    };
+    printf("Estudiantes en la materia '%s' con sexo = %d:\n", materia->nombre, sexoBuscado);
 
-    Inscripcion inscripciones[4] = {
-        {"Milena Arbo", "Algoritmos", 0},
-        {"Juan Perez", "Algoritmos", 7},
-        {"Ana Gomez", "Algoritmos", 9},
-        {"Ana Gomez", "Sistemas Operativos", 0}
-    };
+    // 2. Recorrer la lista de estudiantes dentro de esa materia
+    DoubleLinkedNode *current = materia->listaEstudiantes;
+    while (current != NULL) {
+        Estudiante *est = (Estudiante*) current->data;
 
-    filtrarEstudiantesPorMateriaYCarrera("Algoritmos", "Licenciatura en Sistemas",
-                                        estudiantes, 3, inscripciones, 4);
+        // 3. Comparar el sexo del estudiante con el que buscamos
+        if (ObtenerSexo(est) == sexoBuscado) {
+            printf("- %s %s | Edad: %d | Sexo: %d\n",
+                   ObtenerNombre(est),
+                   ObtenerApellido(est),
+                   ObtenerEdad(est),
+                   ObtenerSexo(est)
+            );
+        }
 
-    return 0;
+        current = current->next;
+    }
 }
