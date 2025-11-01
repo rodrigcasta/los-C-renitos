@@ -16,5 +16,6 @@ void AgregarMateria(GestorMaterias *gestor, const char *nombre);
 Materia *BuscarMateriaPorID(GestorMaterias *gestor, int ID);
 void EliminarMateria(GestorMaterias *gestor, int ID);
 void MatricularEstudiante(GestorMaterias *gestor, int ID_materia, Estudiante *estudiante);
+void FreeGestorMaterias(GestorMaterias *gestor);
 
 #endif

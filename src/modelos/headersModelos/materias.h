@@ -14,4 +14,6 @@ typedef struct Materia {
 // Función constructora
 Materia *NewMateria(const char *nombre);
 
+void FreeMateria(Materia *materia);
+
 #endif 
