@@ -98,3 +98,15 @@ void printList(DoubleLinkedNode *head) {
     }
     printf("NULL\n");
 } // La complejidad de la funcion es O(n) debido al recorrido de toda la lista.
+
+void FreeDoubleLinkedListNodes(DoubleLinkedNode *head) {
+    DoubleLinkedNode *current = head;
+    DoubleLinkedNode *next;
+
+    while (current != NULL) {
+        next = current->next;
+        // Solo libera el nodo, NO los datos (Estudiante *)
+        free(current);
+        current = next;
+    }
+}
