@@ -16,5 +16,5 @@ int SizeList(DoubleLinkedNode *head);
 DoubleLinkedNode *FindElement(DoubleLinkedNode *head, int posicion);
 void *RemoveElement(DoubleLinkedNode **head, int posicion);
 void printList(DoubleLinkedNode *head);
-
+void FreeDoubleLinkedListNodes(DoubleLinkedNode *head);
 #endif
