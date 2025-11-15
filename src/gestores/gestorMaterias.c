@@ -39,6 +39,8 @@ void AgregarMateria(GestorMaterias *gestor, const char *nombre) {
 
     gestor->head_materias = addElement(gestor->head_materias, nuevaMateria);
 }
+
+
 Materia *BuscarMateriaPorID(GestorMaterias *gestor, int ID) {
     if (gestor == NULL || gestor->head_materias == NULL) {
         return NULL;
@@ -96,6 +98,7 @@ void FreeMateria(Materia *materia) {
     FreeDoubleLinkedListNodes(materia->listaEstudiantes);
     free(materia);
 }
+
 
 void FreeGestorMaterias(GestorMaterias *gestor) {
     if (gestor == NULL) return;

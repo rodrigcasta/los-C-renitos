@@ -2,16 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-
-typedef struct Estudiante {
-    char nombre[15];
-    char apellido[15];
-    char nacimiento[11];
-    int edad;
-    int sexo; // 0 = hombre ;1 = mujer
-} Estudiante;
-
-int calcularEdad(const char *fechaNacimiento);
+#include "estudiantes.h"
 
 /**
  * Crea un estudiante con nombre, apellido, fecha de nacimiento y sexo.

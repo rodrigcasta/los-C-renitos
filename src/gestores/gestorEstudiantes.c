@@ -1,17 +1,6 @@
-#include "los-c-renitos/src/estructuras/linkedList_n.c"
-#include "los-c-renitos/src/modelos/estudiantes.c"
-
-typedef struct GestorEstudiantes {
-    LinkedNode *estudiantes
-} GestorEstudiantes;
-
-/*
-listar estudiantes
-
--Buscar estudiantes por nombre
-
--Buscar estudiantes por rango de edad
-*/
+#include "gestorEstudiantes.h"
+#include "los-c-renitos/src/estructuras/headersEstructuras/linkedList_n.h"
+#include "los-c-renitos/src/modelos/headersModelos/estudiantes.h"
 
 GestorEstudiantes *NewGestorEstudiantes() {
     GestorEstudiantes *gestor = malloc(sizeof(GestorEstudiantes));

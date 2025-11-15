@@ -3,6 +3,28 @@
 #include "gestorMaterias.h"  // donde está definida Materia, GestorMaterias, etc.
 #include "estudiantes.h"     // donde está Estudiante y sus funciones
 
+
+// ---------------
+
+// inicializar linkedList de estudiantes
+// incializar linkedList de materias
+
+// Constructor: Carrera *NewCarrera(char nombreCarrera[20])
+
+// getters y setters
+
+// AgregarMateriaALaCarrera(IDMateria) --> Añadir una materia mediante append a la linkedList incializada al principio
+// AgregarEstudianteALaCarrera(IDMateria) --> Añadir una materia mediante append a la linkedList incializada al principio
+
+
+// ObtenerCantidadDeMaterias() return total de carreras
+// ObtenerCantidadDeEstudiantes() devuelvo cantidad de estudiantes dentro de la carrera
+
+// ---------------
+
+
+
+
 // Filtrar estudiantes por MATERIA y SEXO (0 = hombre, 1 = mujer)
 void FiltrarEstudiantesPorMateriaYSexo(GestorMaterias *gestor, int idMateria, int sexoBuscado) {
 
