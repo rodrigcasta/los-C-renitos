@@ -5,5 +5,8 @@
 *.so
 *.dylib
 *.vscode
+<<<<<<< HEAD
 *.vscode
 
+=======
+>>>>>>> origin/estadistica
