@@ -1,7 +1,7 @@
 #include "generadorAleatorio.h"
 #include <stdlib.h>
 #include <time.h>
-#include <stdio.h
+#include <stdio.h>
 
 
 const char *NOMBRES_MATERIAS[] = {
@@ -38,7 +38,6 @@ void GenerarMateriasAleatorias(GestorMaterias *gestor, int cantidad) {
     }
 }
 
-// Colocar esta función auxiliar en main.c o en un archivo de utilidades
 void ImprimirMaterias(GestorMaterias *gestor) {
     if (gestor == NULL || gestor->head_materias == NULL) {
         printf("No hay materias en el gestor.\n");
@@ -48,7 +47,6 @@ void ImprimirMaterias(GestorMaterias *gestor) {
     DoubleLinkedNode *current = gestor->head_materias;
     
     while (current != NULL) {
-        // Casteo necesario de void* al tipo de dato real (Materia*)
         Materia *m = (Materia *)current->data;
 
         printf("ID: %d | Nombre: %s\n", 
