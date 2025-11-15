@@ -4,4 +4,4 @@
 *.dll
 *.so
 *.dylib
-.vscode
+*.vscode
