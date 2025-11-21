@@ -7,8 +7,7 @@
 
 // NOTA: La función ImprimirMaterias ya está declarada en generadorAleatorio.h
 
-int main()
-{
+int main() {
     // 1. Inicializar Gestores
     GestorEstudiantes *ge = NewGestorEstudiantes();
     GestorMaterias *gm = NewGestorMaterias();

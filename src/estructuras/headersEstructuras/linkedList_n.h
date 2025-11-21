@@ -21,5 +21,6 @@ LinkedNode *removeTail(LinkedNode *headLista);
 int getSize(LinkedNode *headLista);
 void printLinkedList(LinkedNode *headLista);
 void freeList(LinkedNode *headLista);
+void freeListAndData(LinkedNode *headLista);
 
 #endif
