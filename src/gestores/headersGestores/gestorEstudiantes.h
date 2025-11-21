@@ -18,5 +18,11 @@ void DeslistarEstudianteID(GestorEstudiantes *gestor, int id);
 Estudiante *BuscarEstudianteID(GestorEstudiantes *gestor, int id);
 Estudiante *BuscarEstudianteNombre(GestorEstudiantes *gestor, const char *nombre);
 Estudiante *BuscarRangoEdad(GestorEstudiantes *gestor, int v1, int v2);
+
+// AGREGADO
+void AprobarMateriaGestor(Estudiante *e, int ID_materia);
+int HaAprobadoMateriaGestor(const Estudiante *e, int ID_materia);
+void CambiarEstadoGraduadoGestor(Estudiante *e, int estado);
+
 void freeGestorEstudiantes(GestorEstudiantes *gestor);
 #endif

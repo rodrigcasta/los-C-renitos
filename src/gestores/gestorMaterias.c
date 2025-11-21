@@ -78,13 +78,37 @@ void EliminarMateria(GestorMaterias *gestor, int ID) {
     }
 }
 
-void MatricularEstudiante(GestorMaterias *gestor, int ID_materia, Estudiante *estudiante) {
+// void MatricularEstudiante(GestorMaterias *gestor, int ID_materia, Estudiante *estudiante) {
+//     Materia *materia = BuscarMateriaPorID(gestor, ID_materia);
+//     if (materia == NULL || estudiante == NULL) {
+//         return;
+//     }
+
+//     materia->listaEstudiantes = addElement(materia->listaEstudiantes, estudiante);
+// }
+
+void MatricularEstudiante(GestorMaterias *gestor, int ID_materia, Estudiante *estudiante, int aprobado_inicial) {
     Materia *materia = BuscarMateriaPorID(gestor, ID_materia);
+
     if (materia == NULL || estudiante == NULL) {
+        printf("Error: Materia o Estudiante no encontrados.\n");
         return;
     }
 
-    materia->listaEstudiantes = addElement(materia->listaEstudiantes, estudiante);
+    // 1. VERIFICACIÓN DE CORRELATIVIDAD
+    if (CumpleCorrelativas(materia, estudiante) == 0) {
+        printf("⚠️ INSCRIPCIÓN FALLIDA: No cumple con las correlativas.\n");
+        return;
+    }
+
+    // 2. CREAR INSCRIPCIÓN (necesaria para la estadística de promedio)
+    Inscripcion *nuevaInscripcion = NewInscripcion(estudiante, aprobado_inicial);
+    if (nuevaInscripcion == NULL)
+        return;
+
+    // 3. AÑADIR A LA LISTA DE INSCRIPCIONES (lista doblemente enlazada)
+    materia->listaInscripciones = addElement(materia->listaInscripciones, nuevaInscripcion);
+    printf("✅ INSCRIPCIÓN EXITOSA.\n");
 }
 
 void FreeMateria(Materia *materia) {
@@ -92,6 +116,48 @@ void FreeMateria(Materia *materia) {
         return;
     FreeDoubleLinkedListNodes(materia->listaEstudiantes);
     free(materia);
+}
+
+// **********************************************
+// FUNCIONES DE CORRELATIVIDAD
+// **********************************************
+
+void AgregarCorrelativa(Materia *materia, int ID_correlativa) {
+    if (materia == NULL)
+        return;
+
+    int *nuevoID = (int *)malloc(sizeof(int));
+    if (nuevoID == NULL)
+        return;
+    *nuevoID = ID_correlativa;
+
+    // Usamos appendNode de tu linkedList_n.c en el campo correlativasID
+    materia->correlativasID = appendNode(materia->correlativasID, nuevoID);
+}
+
+int CumpleCorrelativas(Materia *materia, Estudiante *estudiante) {
+    if (materia == NULL || estudiante == NULL || materia->correlativasID == NULL) {
+        return 1; // Si no hay correlativas, se asume que cumple.
+    }
+
+    LinkedNode *cursor = materia->correlativasID;
+
+    while (cursor != NULL) {
+        int *ID_correlativa_ptr = (int *)cursor->data;
+        if (ID_correlativa_ptr == NULL)
+            continue;
+
+        int ID_correlativa = *ID_correlativa_ptr;
+
+        // Usamos la función del GestorEstudiantes para verificar
+        if (HaAprobadoMateriaGestor(estudiante, ID_correlativa) == 0) {
+            return 0; // Falla: Le falta una correlativa
+        }
+
+        cursor = cursor->next;
+    }
+
+    return 1; // Cumple con todas
 }
 
 void FreeGestorMaterias(GestorMaterias *gestor) {

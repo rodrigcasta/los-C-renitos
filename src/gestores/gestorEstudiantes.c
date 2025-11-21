@@ -1,5 +1,5 @@
 #include "headersGestores/gestorEstudiantes.h"
-
+#include <stdio.h> // Para printf
 /**
  * Crea un nuevo gestor inicializando su linked list.
  */
@@ -89,4 +89,50 @@ void freeGestorEstudiantes(GestorEstudiantes *gestor) {
         return;
     freeList(gestor->estudiantes);
     free(gestor);
+}
+
+// *******************************************************
+// FUNCIONES DE GESTIÓN DEL HISTORIAL
+// *******************************************************
+
+int HaAprobadoMateriaGestor(const Estudiante *e, int ID_materia) {
+    if (e == NULL || e->materiasAprobadas == NULL) {
+        return 0;
+    }
+
+    LinkedNode *cursor = e->materiasAprobadas;
+    while (cursor != NULL) {
+        int *ID_aprobado = (int *)cursor->data;
+
+        if (ID_aprobado != NULL && *ID_aprobado == ID_materia) {
+            return 1;
+        }
+        cursor = cursor->next;
+    }
+    return 0;
+}
+
+void AprobarMateriaGestor(Estudiante *e, int ID_materia) {
+    if (e == NULL)
+        return;
+
+    if (HaAprobadoMateriaGestor(e, ID_materia)) {
+        printf("Advertencia: Materia %d ya aprobada.\n", ID_materia);
+        return;
+    }
+
+    int *nuevoID = (int *)malloc(sizeof(int));
+    if (nuevoID == NULL) {
+        return;
+    }
+    *nuevoID = ID_materia;
+
+    // Usamos la función appendNode de tu linkedList_n.c
+    e->materiasAprobadas = appendNode(e->materiasAprobadas, nuevoID);
+}
+
+void CambiarEstadoGraduadoGestor(Estudiante *e, int estado) {
+    if (e != NULL) {
+        e->esGraduado = estado;
+    }
 }
