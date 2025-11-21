@@ -3,13 +3,15 @@
 #include <stdlib.h>
 #include <time.h>
 
-const char *NOMBRES_ESTUDIANTES[] = {"Alejandro", "Sofía", "Carlos", "Valentina", "Diego", "Camila", "Javier", "Mariana", "Pablo", "Laura", "Andrés", "Valeria"};
-const char *APELLIDOS_ESTUDIANTES[] = {"Gómez", "Rodríguez", "López", "Martínez", "Díaz", "Pérez", "García", "Sánchez", "Romero", "Torres", "Flores", "Ruiz"};
+const char *NOMBRES_ESTUDIANTES[] = {"Alejandro", "Sofia",   "Carlos", "Valentina", "Diego",  "Camila",
+                                     "Javier",    "Mariana", "Pablo",  "Laura",     "Andres", "Valeria"};
+const char *APELLIDOS_ESTUDIANTES[] = {"Gomez",  "Rodriguez", "Lopez",  "Martinez", "Diaz",   "Perez",
+                                       "Garcia", "Sanchez",   "Romero", "Torres",   "Flores", "Ruiz"};
 const int NUM_NOMBRES_E = sizeof(NOMBRES_ESTUDIANTES) / sizeof(NOMBRES_ESTUDIANTES[0]);
 const int NUM_APELLIDOS_E = sizeof(APELLIDOS_ESTUDIANTES) / sizeof(APELLIDOS_ESTUDIANTES[0]);
 
 const char *NOMBRES_MATERIAS[] = {
-    "Introduccion a la Ingeniería en Computacion",
+    "Introduccion a la Ingenieria en Computacion",
     "Algoritmos y Programacion I",
     "Algebra I",
     "Matematica Discreta",
@@ -43,17 +45,14 @@ const char *NOMBRES_MATERIAS[] = {
 
 const int NUM_NOMBRES = sizeof(NOMBRES_MATERIAS) / sizeof(NOMBRES_MATERIAS[0]);
 
-void GenerarMateriasAleatorias(GestorMaterias *gestor)
-{
-    if (gestor == NULL)
-    {
+void GenerarMateriasAleatorias(GestorMaterias *gestor) {
+    if (gestor == NULL) {
         return;
     }
 
     srand(time(NULL));
 
-    for (int i = 0; i < 30; i++)
-    {
+    for (int i = 0; i < 30; i++) {
         // int indiceNombre = rand() % NUM_NOMBRES;
         const char *nombre = NOMBRES_MATERIAS[i];
 
@@ -69,18 +68,15 @@ void GenerarMateriasAleatorias(GestorMaterias *gestor)
  * Genera una cantidad específica de estudiantes con datos aleatorios
  * y los añade al GestorEstudiantes.
  */
-void GenerarEstudiantesAleatorios(GestorEstudiantes *gestor, int cantidad)
-{
-    if (gestor == NULL || cantidad <= 0)
-    {
+void GenerarEstudiantesAleatorios(GestorEstudiantes *gestor, int cantidad) {
+    if (gestor == NULL || cantidad <= 0) {
         return;
     }
 
     // Inicializa la semilla del generador de números aleatorios
     srand(time(NULL));
 
-    for (int i = 0; i < cantidad; i++)
-    {
+    for (int i = 0; i < cantidad; i++) {
         // 1. Nombre y Apellido aleatorio
         const char *nombre = NOMBRES_ESTUDIANTES[rand() % NUM_NOMBRES_E];
         const char *apellido = APELLIDOS_ESTUDIANTES[rand() % NUM_APELLIDOS_E];
@@ -100,29 +96,25 @@ void GenerarEstudiantesAleatorios(GestorEstudiantes *gestor, int cantidad)
 
         // 4. Crear y Listar el estudiante
         Estudiante *nuevoEstudiante = NewEstudiante(nombre, apellido, nacimiento, sexo);
-        if (nuevoEstudiante != NULL)
-        {
+        if (nuevoEstudiante != NULL) {
             // La inicialización de materiasAprobadas y esGraduado
             // la hace la función NewEstudiante o se hace en AltaEstudiante.
             // Asumiendo que ListarEstudiante se encarga de añadirlo al gestor y asignar el ID.
             ListarEstudiante(gestor, nuevoEstudiante);
         }
     }
-    printf("✅ Se han generado y listado %d estudiantes aleatorios.\n", cantidad);
+    printf("Se han generado y listado %d estudiantes aleatorios.\n", cantidad);
 }
 
-void ImprimirMaterias(GestorMaterias *gestor)
-{
-    if (gestor == NULL || gestor->head_materias == NULL)
-    {
+void ImprimirMaterias(GestorMaterias *gestor) {
+    if (gestor == NULL || gestor->head_materias == NULL) {
         printf("No hay materias en el gestor.\n");
         return;
     }
 
     DoubleLinkedNode *current = gestor->head_materias;
 
-    while (current != NULL)
-    {
+    while (current != NULL) {
         Materia *m = (Materia *)current->data;
 
         printf("ID: %d | Nombre: %s\n", m->ID, m->nombre);
