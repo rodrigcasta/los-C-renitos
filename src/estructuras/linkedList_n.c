@@ -1,12 +1,13 @@
 #include "headersEstructuras/linkedList_n.h"
 
+static LinkedNode *getTail(LinkedNode *headLista);
+
 /**
  * Inicializa una nueva lista con un nodo y el dato enviado por parámetro.
  */
 LinkedNode *newLinkedNodeData(void *dato) {
-    LinkedNode *nodo = (LinkedNode *)malloc(sizeof(LinkedNode));
+    LinkedNode *nodo = newLinkedNode();
     nodo->data = dato;
-    nodo->next = NULL;
     return nodo;
 }
 
@@ -24,7 +25,7 @@ LinkedNode *newLinkedNode() {
  * Agrega un nodo al principio de la lista.
  */
 LinkedNode *prependNode(LinkedNode *headLista, void *dato) {
-    LinkedNode *nodo = newLinkedNode(dato);
+    LinkedNode *nodo = newLinkedNodeData(dato);
     nodo->next = headLista;
     return nodo;
 }
@@ -56,7 +57,7 @@ LinkedNode *insertPos(LinkedNode *headLista, void *dato, int pos) {
         printf("Error: posición fuera de rango.\n");
         return headLista;
     }
-    LinkedNode *nodo = newLinkedNode(dato);
+    LinkedNode *nodo = newLinkedNodeData(dato);
     nodo->next = cursor->next;
     cursor->next = nodo;
     return headLista;
@@ -66,7 +67,7 @@ LinkedNode *insertPos(LinkedNode *headLista, void *dato, int pos) {
  * Agrega un nodo al final de la lista.
  */
 LinkedNode *appendNode(LinkedNode *headLista, void *dato) {
-    LinkedNode *nodo = newLinkedNode(dato);
+    LinkedNode *nodo = newLinkedNodeData(dato);
     if (headLista == NULL) {
         return nodo; // la lista estaba vacía, el nuevo nodo es la cabeza
     }

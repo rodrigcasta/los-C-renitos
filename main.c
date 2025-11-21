@@ -1,3 +1,4 @@
+/*
 #include "../../src/gestores/headersGestores/gestorMaterias.h"
 #include "../../src/utils/headersUtils/generadorAleatorio.h"
 #include <stdio.h>
@@ -17,3 +18,4 @@ int main() {
 
     return 0;
 }
+    */

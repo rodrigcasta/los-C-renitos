@@ -18,5 +18,5 @@ void DeslistarEstudianteID(GestorEstudiantes *gestor, int id);
 Estudiante *BuscarEstudianteID(GestorEstudiantes *gestor, int id);
 Estudiante *BuscarEstudianteNombre(GestorEstudiantes *gestor, const char *nombre);
 Estudiante *BuscarRangoEdad(GestorEstudiantes *gestor, int v1, int v2);
-
+void freeGestorEstudiantes(GestorEstudiantes *gestor);
 #endif

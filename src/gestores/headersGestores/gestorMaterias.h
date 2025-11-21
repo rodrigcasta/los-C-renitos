@@ -1,13 +1,13 @@
 #ifndef GESTORMATERIAS_H
 #define GESTORMATERIAS_H
 
-#include "../../modelos/headersModelos/materias.h" 
-#include "../../estructuras/headersEstructuras/doublelinkedlist.h" 
-#include "../../modelos/headersModelos/estudiantes.h" 
+#include "../../estructuras/headersEstructuras/doublelinkedlist.h"
+#include "../../modelos/headersModelos/estudiantes.h"
+#include "../../modelos/headersModelos/materias.h"
 
 typedef struct GestorMaterias {
-    DoubleLinkedNode *head_materias; 
-    int next_ID;                     
+    DoubleLinkedNode *head_materias;
+    int next_ID;
 } GestorMaterias;
 
 GestorMaterias *NewGestorMaterias();

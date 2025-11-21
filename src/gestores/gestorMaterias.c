@@ -1,4 +1,4 @@
-#include "gestorMaterias.h"
+#include "headersGestores/gestorMaterias.h"
 #include <stdlib.h>
 #include <string.h>
 

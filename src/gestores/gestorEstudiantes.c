@@ -5,7 +5,7 @@
  */
 GestorEstudiantes *NewGestorEstudiantes() {
     GestorEstudiantes *gestor = malloc(sizeof(GestorEstudiantes));
-    gestor->estudiantes = newLinkedNode();
+    gestor->estudiantes = NULL;
     gestor->next_ID = 1;
     return gestor;
 }
@@ -48,6 +48,7 @@ Estudiante *BuscarEstudianteID(GestorEstudiantes *gestor, int id) {
         if (ObtenerID(cursor->data) == id) {
             return cursor->data;
         }
+        cursor = cursor->next;
     }
     return NULL;
 }
@@ -58,23 +59,34 @@ Estudiante *BuscarEstudianteID(GestorEstudiantes *gestor, int id) {
 Estudiante *BuscarEstudianteNombre(GestorEstudiantes *gestor, const char *nombre) {
     LinkedNode *cursor = gestor->estudiantes;
     while (cursor != NULL) {
-        if (ObtenerNombre(cursor->data) == nombre) {
+        if (strcmp(ObtenerNombre(cursor->data), nombre) == 0) {
             return cursor->data;
         }
+        cursor = cursor->next;
     }
     return NULL;
 }
 
 /**
- * Devuelve el primer estudiante que cumpla el rango de edad enviado como parametros.
- * La busqueda busca edades entre "v1" y "v2" incluyendo los mismos valores.
+ * Devuelve los estudiantes que cumplan el rango de edad enviado como parametros.
+ * La busqueda verifica edades entre "v1" y "v2" incluyendo los mismos valores.
  */
-Estudiante *BuscarRangoEdad(GestorEstudiantes *gestor, int v1, int v2) {
+LinkedNode *BuscarRangoEdad(GestorEstudiantes *gestor, int v1, int v2) {
+    LinkedNode *resultados = NULL;
     LinkedNode *cursor = gestor->estudiantes;
+
     while (cursor != NULL) {
-        if (ObtenerID(cursor->data) >= v1 && ObtenerID(cursor->data) <= v2) {
-            return cursor->data;
+        if (ObtenerEdad(cursor->data) >= v1 && ObtenerEdad(cursor->data) <= v2) {
+            resultados = appendNode(resultados, cursor->data);
         }
+        cursor = cursor->next;
     }
-    return NULL;
+    return resultados;
+}
+
+void freeGestorEstudiantes(GestorEstudiantes *gestor) {
+    if (gestor == NULL)
+        return;
+    freeList(gestor->estudiantes);
+    free(gestor);
 }

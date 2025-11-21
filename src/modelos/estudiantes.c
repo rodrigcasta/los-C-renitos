@@ -94,10 +94,3 @@ int calcularEdad(const char *fechaNacimiento) {
 
     return edad;
 }
-
-// Test
-int main() {
-    Estudiante *est1 = NewEstudiante("Nahuel", "Aguirre", "09/08/2003", 0);
-    printf("id:%d | edad:%d | Nombre Completo: %s %s | Sexo: %s", ObtenerID(est1), ObtenerEdad(est1),
-           ObtenerNombre(est1), ObtenerApellido(est1), ObtenerSexo(est1));
-}
