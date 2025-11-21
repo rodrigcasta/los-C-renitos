@@ -11,8 +11,8 @@ typedef struct Materia {
     char nombre[50];
 
     LinkedNode *correlativasID; // Lista de IDs (int *) de materias que son requisito
-                                // Usamos la lista doble para la lista de estudiantes
-    // DoubleLinkedNode *listaEstudiantes;
+
+    DoubleLinkedNode *listaEstudiantes; // Campo a liberar en FreeMateria
 
     DoubleLinkedNode *listaInscripciones; // Lista de punteros a 'Inscripcion'
 } Materia;

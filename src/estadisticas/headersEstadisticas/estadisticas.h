@@ -2,9 +2,9 @@
 #ifndef ESTADISTICAS_H
 #define ESTADISTICAS_H
 
+#include "../../gestores/headersGestores/gestorEstudiantes.h"
+#include "../../gestores/headersGestores/gestorMaterias.h"
 #include "../../modelos/headersModelos/inscripcion.h"
-#include "../gestores/headersGestores/gestorEstudiantes.h"
-#include "../gestores/headersGestores/gestorMaterias.h"
 #include <stdio.h>
 #include <stdlib.h>
 
