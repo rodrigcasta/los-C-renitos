@@ -97,9 +97,7 @@ void GenerarEstudiantesAleatorios(GestorEstudiantes *gestor, int cantidad) {
         // 4. Crear y Listar el estudiante
         Estudiante *nuevoEstudiante = NewEstudiante(nombre, apellido, nacimiento, sexo);
         if (nuevoEstudiante != NULL) {
-            // La inicialización de materiasAprobadas y esGraduado
-            // la hace la función NewEstudiante o se hace en AltaEstudiante.
-            // Asumiendo que ListarEstudiante se encarga de añadirlo al gestor y asignar el ID.
+            // La inicialización de materiasAprobadas y esGraduado ahora es manejada por NewEstudiante.
             ListarEstudiante(gestor, nuevoEstudiante);
         }
     }

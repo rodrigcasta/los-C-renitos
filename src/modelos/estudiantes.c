@@ -11,6 +11,8 @@ Estudiante *NewEstudiante(const char *nombre, const char *apellido, const char *
     est->edad = calcularEdad(nacimiento);
     est->sexo = sexo;
     est->ID = 0;
+    est->materiasAprobadas = NULL;
+    est->esGraduado = 0;
     return est;
 }
 
