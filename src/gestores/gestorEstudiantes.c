@@ -1,6 +1,4 @@
-#include "gestorEstudiantes.h"
-#include "../../src/estructuras/headersEstructuras/linkedList_n.h"
-#include "../../src/modelos/headersModelos/estudiantes.h"
+#include "headersGestores/gestorEstudiantes.h"
 
 /**
  * Crea un nuevo gestor inicializando su linked list.
@@ -48,7 +46,7 @@ Estudiante *BuscarEstudianteID(GestorEstudiantes *gestor, int id) {
     LinkedNode *cursor = gestor->estudiantes;
     while (cursor != NULL) {
         if (ObtenerID(cursor->data) == id) {
-            return cursor;
+            return cursor->data;
         }
     }
     return NULL;
@@ -61,7 +59,7 @@ Estudiante *BuscarEstudianteNombre(GestorEstudiantes *gestor, const char *nombre
     LinkedNode *cursor = gestor->estudiantes;
     while (cursor != NULL) {
         if (ObtenerNombre(cursor->data) == nombre) {
-            return cursor;
+            return cursor->data;
         }
     }
     return NULL;
@@ -75,7 +73,7 @@ Estudiante *BuscarRangoEdad(GestorEstudiantes *gestor, int v1, int v2) {
     LinkedNode *cursor = gestor->estudiantes;
     while (cursor != NULL) {
         if (ObtenerID(cursor->data) >= v1 && ObtenerID(cursor->data) <= v2) {
-            return cursor;
+            return cursor->data;
         }
     }
     return NULL;

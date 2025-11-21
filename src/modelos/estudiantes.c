@@ -1,13 +1,9 @@
-#include "estudiantes.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
+#include "headersModelos/estudiantes.h"
 
 /**
  * Crea un estudiante con nombre, apellido, fecha de nacimiento y sexo.
  */
-Estudiante *NewEstudiante(char nombre[15], char apellido[15], char nacimiento[11], int sexo) {
+Estudiante *NewEstudiante(const char *nombre, const char *apellido, const char *nacimiento, int sexo) {
     Estudiante *est = malloc(sizeof(Estudiante));
     strcpy(est->nombre, nombre);
     strcpy(est->apellido, apellido);
@@ -53,8 +49,14 @@ int ObtenerEdad(const Estudiante *e) {
     return e->edad;
 }
 
-int ObtenerSexo(const Estudiante *e) {
-    return e->sexo;
+const char *ObtenerSexo(const Estudiante *e) {
+    if (e->sexo == 0) {
+        return "Hombre";
+    }
+    if (e->sexo == 1) {
+        return "Mujer";
+    }
+    return "Invalido";
 }
 
 void CambiarSexo(Estudiante *e, int sexo) {
@@ -71,7 +73,7 @@ void freeEstudiante(Estudiante *est) {
 /**
  * Calcula la edad a partir de la fecha de nacimiento dada por parámetro.
  */
-static int calcularEdad(const char *fechaNacimiento) {
+int calcularEdad(const char *fechaNacimiento) {
     int dia, mes, anio;
     sscanf(fechaNacimiento, "%d/%d/%d", &dia, &mes, &anio);
 
@@ -91,4 +93,11 @@ static int calcularEdad(const char *fechaNacimiento) {
     }
 
     return edad;
+}
+
+// Test
+int main() {
+    Estudiante *est1 = NewEstudiante("Nahuel", "Aguirre", "09/08/2003", 0);
+    printf("id:%d | edad:%d | Nombre Completo: %s %s | Sexo: %s", ObtenerID(est1), ObtenerEdad(est1),
+           ObtenerNombre(est1), ObtenerApellido(est1), ObtenerSexo(est1));
 }

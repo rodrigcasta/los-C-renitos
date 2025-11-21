@@ -15,9 +15,7 @@ typedef struct Estudiante {
     int ID;
 } Estudiante;
 
-int calcularEdad(const char *fechaNacimiento);
-
-Estudiante *NewEstudiante(char nombre[15], char apellido[15], char nacimiento[11], int sexo);
+Estudiante *NewEstudiante(const char *nombre, const char *apellido, const char *nacimiento, int sexo);
 
 int ObtenerID(const Estudiante *e);
 const char *ObtenerNombre(const Estudiante *e);
@@ -27,8 +25,8 @@ void CambiarApellido(Estudiante *e, const char *apellido);
 const char *ObtenerNacimiento(const Estudiante *e);
 void CambiarNacimiento(Estudiante *e, const char *nacimiento);
 int ObtenerEdad(const Estudiante *e);
-int ObtenerSexo(const Estudiante *e);
+const char *ObtenerSexo(const Estudiante *e);
 void CambiarSexo(Estudiante *e, int sexo);
 void freeEstudiante(Estudiante *est);
-
+int calcularEdad(const char *fechaNacimiento);
 #endif

@@ -1,8 +1,8 @@
 #ifndef GESTORESTUDIANTES_H
 #define GESTORESTUDIANTES_H
 
-#include "../../src/estructuras/headersEstructuras/linkedList_n.h"
-#include "../../src/modelos/headersModelos/estudiantes.h"
+#include "../../estructuras/headersEstructuras/linkedList_n.h"
+#include "../../modelos/headersModelos/estudiantes.h"
 
 typedef struct GestorEstudiantes {
     LinkedNode *estudiantes;

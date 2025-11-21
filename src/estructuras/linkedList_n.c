@@ -1,6 +1,4 @@
-#include "linkedList_n.h"
-#include <stdio.h>
-#include <stdlib.h>
+#include "headersEstructuras/linkedList_n.h"
 
 /**
  * Inicializa una nueva lista con un nodo y el dato enviado por parámetro.
@@ -25,7 +23,7 @@ LinkedNode *newLinkedNode() {
 /**
  * Agrega un nodo al principio de la lista.
  */
-LinkedNode *prependNode(LinkedNode *headLista, int dato) {
+LinkedNode *prependNode(LinkedNode *headLista, void *dato) {
     LinkedNode *nodo = newLinkedNode(dato);
     nodo->next = headLista;
     return nodo;
@@ -35,7 +33,7 @@ LinkedNode *prependNode(LinkedNode *headLista, int dato) {
  * Agrega un nodo para que quede colocado en la posicion indicada.
  * (Ej: posición 1 significa añadir al principio de la lista)
  */
-LinkedNode *insertPos(LinkedNode *headLista, int dato, int pos) {
+LinkedNode *insertPos(LinkedNode *headLista, void *dato, int pos) {
     if (pos <= 0) {
         printf("Error: posición fuera de rango.\n");
         return headLista;
@@ -67,7 +65,7 @@ LinkedNode *insertPos(LinkedNode *headLista, int dato, int pos) {
 /**
  * Agrega un nodo al final de la lista.
  */
-LinkedNode *appendNode(LinkedNode *headLista, int dato) {
+LinkedNode *appendNode(LinkedNode *headLista, void *dato) {
     LinkedNode *nodo = newLinkedNode(dato);
     if (headLista == NULL) {
         return nodo; // la lista estaba vacía, el nuevo nodo es la cabeza
@@ -93,7 +91,7 @@ LinkedNode *removeHead(LinkedNode *headLista) {
  * Elimina el primer nodo que encuentre que su contenido coincida con el dato
  * dado.
  */
-LinkedNode *removeData(LinkedNode *headLista, int data) {
+LinkedNode *removeData(LinkedNode *headLista, void *data) {
     if (headLista == NULL) {
         return NULL;
     }
