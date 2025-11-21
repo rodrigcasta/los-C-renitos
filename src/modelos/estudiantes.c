@@ -1,8 +1,8 @@
+#include "estudiantes.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include "estudiantes.h"
 
 /**
  * Crea un estudiante con nombre, apellido, fecha de nacimiento y sexo.
@@ -14,7 +14,14 @@ Estudiante *NewEstudiante(char nombre[15], char apellido[15], char nacimiento[11
     strcpy(est->nacimiento, nacimiento);
     est->edad = calcularEdad(nacimiento);
     est->sexo = sexo;
+    est->ID = 0;
     return est;
+}
+
+// Getters y Setters.
+
+int ObtenerID(const Estudiante *e) {
+    return e->ID;
 }
 
 const char *ObtenerNombre(const Estudiante *e) {
@@ -54,12 +61,15 @@ void CambiarSexo(Estudiante *e, int sexo) {
     e->sexo = sexo;
 }
 
+/**
+ * Libera estudiante.
+ */
 void freeEstudiante(Estudiante *est) {
     free(est);
 }
 
 /**
- * calcula la edad a partir de la fecha de nacimiento dada por parámetro.
+ * Calcula la edad a partir de la fecha de nacimiento dada por parámetro.
  */
 static int calcularEdad(const char *fechaNacimiento) {
     int dia, mes, anio;

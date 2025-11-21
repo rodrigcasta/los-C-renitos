@@ -1,20 +1,22 @@
 #ifndef GESTORESTUDIANTES_H
 #define GESTORESTUDIANTES_H
 
-#include "los-c-renitos/src/estructuras/headersEstructuras/linkedList_n.h"
-#include "los-c-renitos/src/modelos/headersModelos/estudiantes.h"
+#include "../../src/estructuras/headersEstructuras/linkedList_n.h"
+#include "../../src/modelos/headersModelos/estudiantes.h"
 
 typedef struct GestorEstudiantes {
-    LinkedNode *estudiantes
+    LinkedNode *estudiantes;
+    int next_ID;
 } GestorEstudiantes;
-
 
 GestorEstudiantes *NewGestorEstudiantes();
 
 void ListarEstudiante(GestorEstudiantes *gestor, Estudiante *estudiante);
 
-void DeslistarEstudiante(GestorEstudiantes *gestor, Estudiante *nombre);
+void DeslistarEstudianteID(GestorEstudiantes *gestor, int id);
 
-Estudiante *BuscarEstudiante(GestorEstudiantes *gestor, const char *nombre);
+Estudiante *BuscarEstudianteID(GestorEstudiantes *gestor, int id);
+Estudiante *BuscarEstudianteNombre(GestorEstudiantes *gestor, const char *nombre);
+Estudiante *BuscarRangoEdad(GestorEstudiantes *gestor, int v1, int v2);
 
 #endif

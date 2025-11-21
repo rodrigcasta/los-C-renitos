@@ -2,44 +2,40 @@
 #include <stdlib.h>
 #include <string.h>
 
-
-
 Materia *NewMateria(const char *nombre) {
     Materia *m = malloc(sizeof(Materia));
-    if (m == NULL) return NULL;
-    
+    if (m == NULL)
+        return NULL;
+
     // El ID será asignado por el gestor
-    m->ID = 0; 
+    m->ID = 0;
     strcpy(m->nombre, nombre);
-    m->listaEstudiantes = NULL; 
+    m->listaEstudiantes = NULL;
     return m;
 }
 
-
-
 GestorMaterias *NewGestorMaterias() {
     GestorMaterias *gestor = malloc(sizeof(GestorMaterias));
-    if (gestor == NULL) return NULL;
+    if (gestor == NULL)
+        return NULL;
     gestor->head_materias = newDoublyLinkedList();
-    gestor->next_ID = 1; 
+    gestor->next_ID = 1;
     return gestor;
 }
 
-
-
 void AgregarMateria(GestorMaterias *gestor, const char *nombre) {
-    if (gestor == NULL) return;
+    if (gestor == NULL)
+        return;
 
-
-    Materia *nuevaMateria = NewMateria(nombre); 
-    if (nuevaMateria == NULL) return;
+    Materia *nuevaMateria = NewMateria(nombre);
+    if (nuevaMateria == NULL)
+        return;
 
     nuevaMateria->ID = gestor->next_ID;
     gestor->next_ID++;
 
     gestor->head_materias = addElement(gestor->head_materias, nuevaMateria);
 }
-
 
 Materia *BuscarMateriaPorID(GestorMaterias *gestor, int ID) {
     if (gestor == NULL || gestor->head_materias == NULL) {
@@ -57,24 +53,23 @@ Materia *BuscarMateriaPorID(GestorMaterias *gestor, int ID) {
     return NULL;
 }
 
-
 void EliminarMateria(GestorMaterias *gestor, int ID) {
-if (gestor == NULL || gestor->head_materias == NULL) {
+    if (gestor == NULL || gestor->head_materias == NULL) {
         return;
     }
 
     DoubleLinkedNode *current = gestor->head_materias;
     int posicion = 0;
-    
+
     while (current != NULL) {
         Materia *materia = (Materia *)current->data;
         if (materia->ID == ID) {
-             // 1. Llamar a la función que devuelve los datos
-             Materia *materia_a_liberar = (Materia *)RemoveElement(&gestor->head_materias, posicion);     
-            
-             // 2. Liberar la estructura Materia y su lista anidada
-             if (materia_a_liberar != NULL) {
-                   FreeMateria(materia_a_liberar);
+            // 1. Llamar a la función que devuelve los datos
+            Materia *materia_a_liberar = (Materia *)RemoveElement(&gestor->head_materias, posicion);
+
+            // 2. Liberar la estructura Materia y su lista anidada
+            if (materia_a_liberar != NULL) {
+                FreeMateria(materia_a_liberar);
             }
             return;
         }
@@ -83,25 +78,25 @@ if (gestor == NULL || gestor->head_materias == NULL) {
     }
 }
 
-
 void MatricularEstudiante(GestorMaterias *gestor, int ID_materia, Estudiante *estudiante) {
     Materia *materia = BuscarMateriaPorID(gestor, ID_materia);
     if (materia == NULL || estudiante == NULL) {
         return;
     }
 
-    materia->listaEstudiantes = addElement(materia->listaEstudiante, estudiante);
+    materia->listaEstudiantes = addElement(materia->listaEstudiantes, estudiante);
 }
 
 void FreeMateria(Materia *materia) {
-    if (materia == NULL) return;
+    if (materia == NULL)
+        return;
     FreeDoubleLinkedListNodes(materia->listaEstudiantes);
     free(materia);
 }
 
-
 void FreeGestorMaterias(GestorMaterias *gestor) {
-    if (gestor == NULL) return;
+    if (gestor == NULL)
+        return;
 
     DoubleLinkedNode *current = gestor->head_materias;
     DoubleLinkedNode *next;
@@ -110,11 +105,10 @@ void FreeGestorMaterias(GestorMaterias *gestor) {
         next = current->next;
         Materia *materia = (Materia *)current->data;
 
-        FreeMateria(materia); 
-
+        FreeMateria(materia);
 
         free(current);
-        
+
         current = next;
     }
 
