@@ -6,7 +6,8 @@
 // ESTADÍSTICAS GENERALES
 // ****************************************************
 
-EstadisticasGenerales *CalcularEstadisticasGenerales(GestorEstudiantes *ge, GestorMaterias *gm) {
+EstadisticasGenerales *CalcularEstadisticasGenerales(GestorEstudiantes *ge, GestorMaterias *gm)
+{
     if (ge == NULL || gm == NULL)
         return NULL;
 
@@ -19,10 +20,12 @@ EstadisticasGenerales *CalcularEstadisticasGenerales(GestorEstudiantes *ge, Gest
 
     // Contar Alumnos y Graduados (depende de Estudiante->esGraduado)
     LinkedNode *cursorEstudiante = ge->estudiantes;
-    while (cursorEstudiante != NULL) {
+    while (cursorEstudiante != NULL)
+    {
         stats->totalAlumnos++;
         Estudiante *est = (Estudiante *)cursorEstudiante->data;
-        if (est->esGraduado == 1) {
+        if (est->esGraduado == 1)
+        {
             stats->totalGraduados++;
         }
         cursorEstudiante = cursorEstudiante->next;
@@ -31,7 +34,8 @@ EstadisticasGenerales *CalcularEstadisticasGenerales(GestorEstudiantes *ge, Gest
     // Contar Materias
     stats->totalMaterias = 0;
     DoubleLinkedNode *cursorMateria = gm->head_materias;
-    while (cursorMateria != NULL) {
+    while (cursorMateria != NULL)
+    {
         stats->totalMaterias++;
         cursorMateria = cursorMateria->next;
     }
@@ -39,13 +43,15 @@ EstadisticasGenerales *CalcularEstadisticasGenerales(GestorEstudiantes *ge, Gest
     return stats;
 }
 
-void MostrarEstadisticasGenerales(EstadisticasGenerales *stats) {
-    if (stats == NULL) {
-        printf("\nNo hay estadísticas generales disponibles.\n");
+void MostrarEstadisticasGenerales(EstadisticasGenerales *stats)
+{
+    if (stats == NULL)
+    {
+        printf("\nNo hay estadisticas generales disponibles.\n");
         return;
     }
 
-    printf("\n--- 📊 ESTADÍSTICAS GENERALES ---\n");
+    printf("\n--- ESTADISTICAS GENERALES ---\n");
     printf("1. Cantidad total de alumnos en la carrera: %d\n", stats->totalAlumnos);
     printf("2. Cantidad total de materias ofrecidas: %d\n", stats->totalMaterias);
     printf("3. Cantidad de alumnos graduados: %d\n", stats->totalGraduados);
@@ -56,8 +62,10 @@ void MostrarEstadisticasGenerales(EstadisticasGenerales *stats) {
 // ESTADÍSTICA DE PROMEDIO DE APROBADOS
 // ****************************************************
 
-float CalcularPromedioAprobadosMateria(Materia *materia) {
-    if (materia == NULL || materia->listaInscripciones == NULL) {
+float CalcularPromedioAprobadosMateria(Materia *materia)
+{
+    if (materia == NULL || materia->listaInscripciones == NULL)
+    {
         return 0.0f;
     }
 
@@ -66,39 +74,45 @@ float CalcularPromedioAprobadosMateria(Materia *materia) {
 
     // Recorre la lista de Inscripciones (depende de Inscripcion->estaAprobado)
     DoubleLinkedNode *current = materia->listaInscripciones;
-    while (current != NULL) {
+    while (current != NULL)
+    {
         totalInscritos++;
 
         Inscripcion *insc = (Inscripcion *)current->data;
 
-        if (insc->estaAprobado == 1) {
+        if (insc->estaAprobado == 1)
+        {
             totalAprobados++;
         }
 
         current = current->next;
     }
 
-    if (totalInscritos == 0) {
+    if (totalInscritos == 0)
+    {
         return 0.0f;
     }
 
     return (float)totalAprobados / totalInscritos;
 }
 
-void MostrarPromedioAprobadosPorMateria(GestorMaterias *gm) {
-    if (gm == NULL || gm->head_materias == NULL) {
+void MostrarPromedioAprobadosPorMateria(GestorMaterias *gm)
+{
+    if (gm == NULL || gm->head_materias == NULL)
+    {
         printf("\nNo hay materias registradas.\n");
         return;
     }
 
-    printf("\n--- 📈 PROMEDIO DE APROBADOS POR MATERIA ---\n");
+    printf("\n--- PROMEDIO DE APROBADOS POR MATERIA ---\n");
     DoubleLinkedNode *cursorMateria = gm->head_materias;
 
-    while (cursorMateria != NULL) {
+    while (cursorMateria != NULL)
+    {
         Materia *materia = (Materia *)cursorMateria->data;
         float promedio = CalcularPromedioAprobadosMateria(materia);
 
-        printf("Materia ID %d (%s): %.2f%% de Aprobación.\n", materia->ID, materia->nombre, promedio * 100.0f);
+        printf("Materia ID %d (%s): %.2f%% de Aprobacion.\n", materia->ID, materia->nombre, promedio * 100.0f);
 
         cursorMateria = cursorMateria->next;
     }

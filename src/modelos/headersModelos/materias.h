@@ -6,7 +6,8 @@
 #include "../../estructuras/headersEstructuras/linkedList_n.h" // NECESARIO para requisitos de correlativas
 #include "inscripcion.h"                                       // NECESARIO para listaInscripciones
 
-typedef struct Materia {
+typedef struct Materia
+{
     int ID;
     char nombre[50];
 

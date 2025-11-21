@@ -2,25 +2,32 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-DoubleLinkedNode *newDoublyLinkedList() {
+DoubleLinkedNode *newDoublyLinkedList()
+{
     return NULL;
 }
 
-DoubleLinkedNode *addElement(DoubleLinkedNode *head, void *data) {
+DoubleLinkedNode *addElement(DoubleLinkedNode *head, void *data)
+{
     DoubleLinkedNode *newNode = malloc(sizeof(DoubleLinkedNode));
-    if (newNode == NULL) {
+    if (newNode == NULL)
+    {
         return head;
     }
 
     newNode->data = data;
     newNode->next = NULL;
 
-    if (head == NULL) {
+    if (head == NULL)
+    {
         newNode->prev = NULL;
         return newNode;
-    } else {
+    }
+    else
+    {
         DoubleLinkedNode *current = head;
-        while (current->next != NULL) {
+        while (current->next != NULL)
+        {
             current = current->next;
         }
 
@@ -31,54 +38,67 @@ DoubleLinkedNode *addElement(DoubleLinkedNode *head, void *data) {
     }
 } // La complejidad de la funcion es O(n) debido al recorrido hasta el final de la lista.
 
-int SizeList(DoubleLinkedNode *head) {
+int SizeList(DoubleLinkedNode *head)
+{
     int count = 0;
     DoubleLinkedNode *current = head;
 
-    while (current != NULL) {
+    while (current != NULL)
+    {
         current = current->next;
         count++;
     }
     return count;
 } // La complejidad de la funcion es O(n) debido al recorrido de toda la lista.
 
-DoubleLinkedNode *FindElement(DoubleLinkedNode *head, int posicion) {
-    if (head == NULL || posicion < 0) {
+DoubleLinkedNode *FindElement(DoubleLinkedNode *head, int posicion)
+{
+    if (head == NULL || posicion < 0)
+    {
         return NULL;
     }
 
     DoubleLinkedNode *current = head;
 
-    for (int i = 0; current != NULL && i < posicion; i++) {
+    for (int i = 0; current != NULL && i < posicion; i++)
+    {
         current = current->next;
     }
 
     return current;
 } // La complejidad de la funcion es O(n) debido al recorrido hasta la posicion indicada.
 
-void *RemoveElement(DoubleLinkedNode **head, int posicion) {
+void *RemoveElement(DoubleLinkedNode **head, int posicion)
+{
 
     DoubleLinkedNode *current = *head;
-    if (current == NULL || posicion < 0) {
+    if (current == NULL || posicion < 0)
+    {
         return NULL; // Retorna NULL si no se puede eliminar
     }
 
-    for (int i = 0; current != NULL && i < posicion; i++) {
+    for (int i = 0; current != NULL && i < posicion; i++)
+    {
         current = current->next;
     }
 
-    if (current == NULL) {
+    if (current == NULL)
+    {
         return NULL; // Retorna NULL si la posición es inválida
     }
 
     // Desvincular el nodo
-    if (current->prev != NULL) {
+    if (current->prev != NULL)
+    {
         current->prev->next = current->next;
-    } else {
+    }
+    else
+    {
         *head = current->next; // El nodo a eliminar es la cabeza
     }
 
-    if (current->next != NULL) {
+    if (current->next != NULL)
+    {
         current->next->prev = current->prev;
     }
 
@@ -88,20 +108,24 @@ void *RemoveElement(DoubleLinkedNode **head, int posicion) {
     return data_to_return; // Retorna los datos (la Materia *)
 } // la complejidad de la funcion es O(n) debido al recorrido hasta la posicion indicada.
 
-void printList(DoubleLinkedNode *head) {
+void printList(DoubleLinkedNode *head)
+{
     DoubleLinkedNode *current = head;
-    while (current != NULL) {
+    while (current != NULL)
+    {
         printf("%d <-> ", current->data);
         current = current->next;
     }
     printf("NULL\n");
 } // La complejidad de la funcion es O(n) debido al recorrido de toda la lista.
 
-void FreeDoubleLinkedListNodes(DoubleLinkedNode *head) {
+void FreeDoubleLinkedListNodes(DoubleLinkedNode *head)
+{
     DoubleLinkedNode *current = head;
     DoubleLinkedNode *next;
 
-    while (current != NULL) {
+    while (current != NULL)
+    {
         next = current->next;
         // Solo libera el nodo, NO los datos (Estudiante *)
         free(current);

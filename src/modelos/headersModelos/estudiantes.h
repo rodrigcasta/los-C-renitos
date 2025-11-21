@@ -7,7 +7,8 @@
 #include <string.h>
 #include <time.h>
 
-typedef struct Estudiante {
+typedef struct Estudiante
+{
     char nombre[15];
     char apellido[15];
     char nacimiento[11];

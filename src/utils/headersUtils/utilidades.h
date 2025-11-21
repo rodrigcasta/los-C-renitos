@@ -15,4 +15,8 @@ void leerCadena(char *destino, int max_len);
 int leerEntero();
 int leerID(const char *mensaje);
 
+int ObtenerAnioActual();
+int ObtenerMesActual();
+int ObtenerDiaActual();
+
 #endif

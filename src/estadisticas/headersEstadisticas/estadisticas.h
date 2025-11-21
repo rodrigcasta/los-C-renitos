@@ -8,7 +8,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct EstadisticasGenerales {
+typedef struct EstadisticasGenerales
+{
     int totalAlumnos;
     int totalMaterias;
     int totalGraduados;
