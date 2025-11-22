@@ -102,6 +102,19 @@ void freeGestorEstudiantes(GestorEstudiantes *gestor) {
 // FUNCIONES DE GESTIÓN DEL HISTORIAL
 // *******************************************************
 
+void VerificarGraduacion(Estudiante *e) {
+    if (e == NULL || e->esGraduado == 1) {
+        return;
+    }
+
+    int materiasAprobadasCount = getSize(e->materiasAprobadas);
+
+    if (materiasAprobadasCount >= MATERIAS_PARA_GRADUACION) {
+        CambiarEstadoGraduadoGestor(e, 1);
+        printf("\n*** ¡FELICITACIONES! El estudiante ha alcanzado la graduacion. ***\n");
+    }
+}
+
 int HaAprobadoMateriaGestor(const Estudiante *e, int ID_materia) {
     if (e == NULL || e->materiasAprobadas == NULL) {
         return 0;
@@ -134,8 +147,8 @@ void AprobarMateriaGestor(Estudiante *e, int ID_materia) {
     }
     *nuevoID = ID_materia;
 
-    // Usamos la función appendNode de tu linkedList_n.c
     e->materiasAprobadas = appendNode(e->materiasAprobadas, nuevoID);
+    VerificarGraduacion(e);
 }
 
 void CambiarEstadoGraduadoGestor(Estudiante *e, int estado) {
