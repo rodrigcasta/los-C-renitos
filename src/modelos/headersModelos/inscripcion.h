@@ -1,14 +1,12 @@
 #ifndef INSCRIPCION_H
 #define INSCRIPCION_H
 
-#include <stdlib.h>
-// Necesitamos Estudiante para el puntero interno
 #include "estudiantes.h"
+#include <stdlib.h>
 
-typedef struct Inscripcion
-{
-    Estudiante *estudiante; // Puntero al alumno matriculado
-    int estaAprobado;       // 1 = Aprobado, 0 = Reprobado (para la estadística)
+typedef struct Inscripcion {
+    Estudiante *estudiante;
+    int estaAprobado;
 } Inscripcion;
 
 Inscripcion *NewInscripcion(Estudiante *e, int aprobado);
