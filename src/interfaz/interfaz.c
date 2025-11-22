@@ -115,13 +115,11 @@ void AltaEstudiante(GestorEstudiantes *ge) {
 
     printf("\n--- DAR DE ALTA ESTUDIANTE ---\n");
 
-    // VALIDACIÓN: Nombre (Solo letras y espacios)
     do {
         printf("Ingrese nombre (solo letras): ");
         leerCadena(nombre, 15);
         nombreValido = 1;
 
-        // Lógica de validación de letras y espacios incrustada
         if (nombre[0] == '\0') {
             nombreValido = 0;
         } else {
@@ -138,13 +136,11 @@ void AltaEstudiante(GestorEstudiantes *ge) {
         }
     } while (!nombreValido);
 
-    // VALIDACIÓN: Apellido (Solo letras y espacios)
     do {
         printf("Ingrese apellido (solo letras): ");
         leerCadena(apellido, 15);
         apellidoValido = 1;
 
-        // Lógica de validación de letras y espacios incrustada
         if (apellido[0] == '\0') {
             apellidoValido = 0;
         } else {
@@ -161,29 +157,23 @@ void AltaEstudiante(GestorEstudiantes *ge) {
         }
     } while (!apellidoValido);
 
-    // VALIDACIÓN: Fecha de Nacimiento (Formato dd/mm/yyyy y Validez Lógica)
     do {
         printf("Ingrese fecha de nacimiento en formato dd/mm/yyyy (con las barras incluidas): ");
         leerCadena(nacimiento, 11);
-        fechaValida = 1; // Asumimos que es válida
+        fechaValida = 1;
 
-        // Lógica de validación de fecha incrustada
         int dia, mes, anio;
         int chars_leidos = 0;
         int resultado = sscanf(nacimiento, "%d/%d/%d%n", &dia, &mes, &anio, &chars_leidos);
 
-        // 1. Validar Formato Básico y Longitud
         if (resultado != 3 || chars_leidos != 10 || nacimiento[10] != '\0') {
             fechaValida = 0;
         } else {
-            // 2. Lógica de bisiesto incrustada
             int esBisiesto = (anio % 4 == 0 && anio % 100 != 0) || (anio % 400 == 0);
 
-            // 3. Validar Rango Lógico de Mes y Año
             if (mes < 1 || mes > 12 || anio < 1900 || anio > ObtenerAnioActual()) {
                 fechaValida = 0;
             } else {
-                // 4. Validar Días del Mes
                 int diasEnMes[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
                 int maxDias = diasEnMes[mes];
 
@@ -194,7 +184,6 @@ void AltaEstudiante(GestorEstudiantes *ge) {
                 if (dia < 1 || dia > maxDias) {
                     fechaValida = 0;
                 } else {
-                    // 5. Validar que la fecha no sea futura
                     if (anio == ObtenerAnioActual()) {
                         int mesActual = ObtenerMesActual();
                         if (mes > mesActual) {
@@ -216,7 +205,6 @@ void AltaEstudiante(GestorEstudiantes *ge) {
         }
     } while (!fechaValida);
 
-    // VALIDACIÓN: Sexo
     do {
         printf("Ingrese su sexo (0 = Hombre, 1 = Mujer): ");
         sexo = leerEntero();
@@ -325,7 +313,6 @@ void BuscarEstudiante(GestorEstudiantes *ge) {
         }
         resultados = BuscarRangoEdad(ge, v1, v2);
         MostrarEstudiantesBusqueda(resultados);
-        // La función BuscarRangoEdad crea una nueva lista, hay que liberarla
         freeList(resultados);
         break;
     case 4:
@@ -341,13 +328,11 @@ void MenuModificarEstudiante(Estudiante *e) {
     char nuevoValor[20];
     int nuevoSexo;
 
-    // Variables de validación (copiadas de AltaEstudiante)
     int nombreValido;
     int apellidoValido;
     int fechaValida;
 
     do {
-        // La limpieza de pantalla y el menú se mantienen igual
         limpiarPantalla();
         printf("\n|| MODIFICAR PARAMETROS DE %s %s ||\n", ObtenerNombre(e), ObtenerApellido(e));
         printf("1. Nombre (Actual: %s)\n", ObtenerNombre(e));
@@ -363,13 +348,11 @@ void MenuModificarEstudiante(Estudiante *e) {
 
         switch (opcion) {
         case 1:
-            // --- VALIDACIÓN DE NOMBRE (COPIADA DE ALTAESTUDIANTE) ---
             do {
                 printf("Ingrese nuevo nombre (solo letras): ");
                 leerCadena(nuevoValor, 15);
                 nombreValido = 1;
 
-                // Lógica de validación de letras y espacios incrustada
                 if (nuevoValor[0] == '\0') {
                     nombreValido = 0;
                 } else {
@@ -385,20 +368,17 @@ void MenuModificarEstudiante(Estudiante *e) {
                     printf("ERROR: El nombre solo debe contener letras y espacios.\n");
                 }
             } while (!nombreValido);
-            // --------------------------------------------------------
 
             CambiarNombre(e, nuevoValor);
             printf("Nombre modificado.\n");
             break;
 
         case 2:
-            // --- VALIDACIÓN DE APELLIDO (COPIADA DE ALTAESTUDIANTE) ---
             do {
                 printf("Ingrese nuevo apellido (solo letras): ");
                 leerCadena(nuevoValor, 15);
                 apellidoValido = 1;
 
-                // Lógica de validación de letras y espacios incrustada
                 if (nuevoValor[0] == '\0') {
                     apellidoValido = 0;
                 } else {
@@ -414,38 +394,29 @@ void MenuModificarEstudiante(Estudiante *e) {
                     printf("ERROR: El apellido solo debe contener letras y espacios.\n");
                 }
             } while (!apellidoValido);
-            // ---------------------------------------------------------
 
             CambiarApellido(e, nuevoValor);
             printf("Apellido modificado.\n");
             break;
 
         case 3:
-            // --- VALIDACIÓN DE FECHA DE NACIMIENTO (COPIADA DE ALTAESTUDIANTE) ---
             do {
                 printf("Ingrese nueva fecha de nacimiento (dd/mm/yyyy): ");
-                // Usamos 11 como tamaño, como en AltaEstudiante
                 leerCadena(nuevoValor, 11);
-                fechaValida = 1; // Asumimos que es válida
+                fechaValida = 1;
 
-                // Lógica de validación de fecha incrustada
                 int dia, mes, anio;
                 int chars_leidos = 0;
                 int resultado = sscanf(nuevoValor, "%d/%d/%d%n", &dia, &mes, &anio, &chars_leidos);
 
-                // 1. Validar Formato Básico y Longitud
                 if (resultado != 3 || chars_leidos != 10 || nuevoValor[10] != '\0') {
                     fechaValida = 0;
                 } else {
-                    // 2. Lógica de bisiesto incrustada
                     int esBisiesto = (anio % 4 == 0 && anio % 100 != 0) || (anio % 400 == 0);
 
-                    // 3. Validar Rango Lógico de Mes y Año
-                    // Se asume la existencia de la función ObtenerAnioActual()
                     if (mes < 1 || mes > 12 || anio < 1900 || anio > ObtenerAnioActual()) {
                         fechaValida = 0;
                     } else {
-                        // 4. Validar Días del Mes
                         int diasEnMes[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
                         int maxDias = diasEnMes[mes];
 
@@ -456,8 +427,6 @@ void MenuModificarEstudiante(Estudiante *e) {
                         if (dia < 1 || dia > maxDias) {
                             fechaValida = 0;
                         } else {
-                            // 5. Validar que la fecha no sea futura
-                            // Se asume la existencia de las funciones ObtenerMesActual() y ObtenerDiaActual()
                             if (anio == ObtenerAnioActual()) {
                                 int mesActual = ObtenerMesActual();
                                 if (mes > mesActual) {
@@ -478,7 +447,6 @@ void MenuModificarEstudiante(Estudiante *e) {
                            "ser futura).\n");
                 }
             } while (!fechaValida);
-            // -------------------------------------------------------------------------------------
 
             CambiarNacimiento(e, nuevoValor);
             printf("Fecha de nacimiento modificada (Nueva edad: %d).\n", ObtenerEdad(e));
@@ -510,7 +478,6 @@ void MenuModificarEstudiante(Estudiante *e) {
  * Asume que el estudiante ya está inscrito.
  */
 void RendirMateria(Estudiante *e, Materia *materia) {
-    // Buscar la inscripción en la materia
     DoubleLinkedNode *cursor = materia->listaInscripciones;
     Inscripcion *inscripcion = NULL;
     while (cursor != NULL) {
@@ -532,7 +499,6 @@ void RendirMateria(Estudiante *e, Materia *materia) {
         return;
     }
 
-    // Suponemos una nota aleatoria o una simple aprobación
     int aprobacion;
     do {
         printf("Ingrese resultado (1 = Aprobado, 0 = Reprobado): ");
@@ -540,9 +506,7 @@ void RendirMateria(Estudiante *e, Materia *materia) {
     } while (aprobacion != 0 && aprobacion != 1);
 
     if (aprobacion == 1) {
-        // 1. Actualizar la inscripción
         inscripcion->estaAprobado = 1;
-        // 2. Añadir a la lista de materias aprobadas del estudiante
         AprobarMateriaGestor(e, materia->ID);
         printf("Materia '%s' aprobada e historico actualizado.\n", materia->nombre);
     } else {
@@ -569,11 +533,8 @@ void DarDeBajaInscripcion(Estudiante *e, Materia *materia) {
     while (current != NULL) {
         Inscripcion *insc = (Inscripcion *)current->data;
         if (insc->estudiante == e) {
-            // Eliminar y liberar la inscripción
             Inscripcion *insc_a_liberar = (Inscripcion *)RemoveElement(&materia->listaInscripciones, posicion);
             if (insc_a_liberar != NULL) {
-                // Si la inscripción existía, liberar la estructura Inscripcion
-                // NOTA: FreeInscripcion ya NO libera al Estudiante*, solo la estructura Inscripcion.
                 FreeInscripcion(insc_a_liberar);
                 printf("Inscripcion eliminada para la materia '%s'.\n", materia->nombre);
             }
@@ -594,7 +555,7 @@ void MenuAccederEstudiante(Estudiante *e, GestorMaterias *gm, GestorEstudiantes 
     int idMateria;
     Materia *materia;
     char confirmacion[5];
-    LinkedNode *materiasInscritas = NULL; // Usaremos una lista temporal para rendir/dar de baja
+    LinkedNode *materiasInscritas = NULL;
 
     do {
         limpiarPantalla();
@@ -616,13 +577,11 @@ void MenuAccederEstudiante(Estudiante *e, GestorMaterias *gm, GestorEstudiantes 
             MenuModificarEstudiante(e);
             break;
         case 2:
-            // Anotarse a materia
             MostrarMateriasDisponibles(gm);
             idMateria = leerID("Ingrese ID de la materia a anotarse: ");
             materia = BuscarMateriaPorID(gm, idMateria);
 
             if (materia != NULL) {
-                // El 0 indica que inicialmente está 'Reprobado' (simplemente inscrito)
                 MatricularEstudiante(gm, idMateria, e, 0);
             } else {
                 printf("ERROR: Materia con ID %d no encontrada.\n", idMateria);
@@ -630,7 +589,6 @@ void MenuAccederEstudiante(Estudiante *e, GestorMaterias *gm, GestorEstudiantes 
             pausar(NULL);
             break;
         case 3:
-            // Rendir materia: Necesita estar inscrito
             MostrarMateriasDisponibles(gm);
             idMateria = leerID("Ingrese ID de la materia a rendir: ");
             materia = BuscarMateriaPorID(gm, idMateria);
@@ -643,7 +601,6 @@ void MenuAccederEstudiante(Estudiante *e, GestorMaterias *gm, GestorEstudiantes 
             pausar(NULL);
             break;
         case 4:
-            // Dar de baja materia: Solo elimina la inscripción
             MostrarMateriasDisponibles(gm);
             idMateria = leerID("Ingrese ID de la materia a darse de baja: ");
             materia = BuscarMateriaPorID(gm, idMateria);
@@ -662,12 +619,10 @@ void MenuAccederEstudiante(Estudiante *e, GestorMaterias *gm, GestorEstudiantes 
             pausar(NULL);
             break;
         case 5:
-            // Ver materias aprobadas
             MostrarMateriasAprobadasEstudiante(e, gm);
             pausar(NULL);
             break;
         case 6:
-            // Volver
             break;
         default:
             printf("Opcion invalida.\n");
@@ -691,10 +646,7 @@ void AltaMateria(GestorMaterias *gm) {
 
     AgregarMateria(gm, nombre);
 
-    // Buscamos la materia recién agregada (no es eficiente pero es simple)
-    // Se puede modificar AgregarMateria para que devuelva la Materia*
     printf("\n Materia dada de alta correctamente. \n");
-    // Podríamos mostrar la lista de nuevo, pero no es estrictamente necesario
     pausar(NULL);
 }
 
@@ -769,19 +721,16 @@ void MenuEstadisticas(GestorEstudiantes *ge, GestorMaterias *gm) {
     limpiarPantalla();
     printf("\n||              BIENVENIDO a las estadisticas             ||\n");
 
-    // Estadísticas Generales
     EstadisticasGenerales *stats = CalcularEstadisticasGenerales(ge, gm);
     MostrarEstadisticasGenerales(stats);
 
-    // Promedio de Aprobados por Materia
     MostrarPromedioAprobadosPorMateria(gm);
 
-    // NOTA: stats fue creado con malloc, debe ser liberado
     if (stats != NULL) {
         free(stats);
     }
 
-    pausar("presione una tecla para volver...");
+    pausar(NULL);
 }
 
 /**
@@ -857,7 +806,6 @@ void MenuGestorEstudiantes(GestorEstudiantes *ge, GestorMaterias *gm) {
             AltaEstudiante(ge);
             break;
         case 3:
-            // Acceder a estudiante
             id = leerID("Ingrese ID de estudiante: ");
             estudiante = BuscarEstudianteID(ge, id);
             if (estudiante != NULL) {
@@ -884,7 +832,7 @@ void MenuGestorEstudiantes(GestorEstudiantes *ge, GestorMaterias *gm) {
 
 void MenuPrincipal(GestorEstudiantes *ge, GestorMaterias *gm) {
     int opcion;
-    int cantidad; // Necesaria para leer la cantidad a generar
+    int cantidad;
 
     do {
         limpiarPantalla();
@@ -911,34 +859,36 @@ void MenuPrincipal(GestorEstudiantes *ge, GestorMaterias *gm) {
         case 3:
             MenuEstadisticas(ge, gm);
             break;
-        case 4: // Generar estudiantes
+        case 4:
             printf("\n--- GENERAR ESTUDIANTES ALEATORIOS ---\n");
             printf("Ingrese la cantidad de estudiantes a generar: ");
             cantidad = leerEntero();
 
             if (cantidad > 0) {
-                GenerarEstudiantesAleatorios(ge, cantidad);
+                GenerarEstudiantesAleatorios(ge, gm, cantidad);
             } else {
                 printf("La cantidad debe ser mayor a cero.\n");
             }
             pausar(NULL);
             break;
-        case 5: // Generar materias
+        case 5:
             printf("\n--- GENERAR MATERIAS ---\n");
-            // printf("Ingrese la cantidad de materias a generar: ");
-            // cantidad = leerEntero();
-
+            if (gm->head_materias != NULL) {
+                printf("\n Ya existen materias en la plataforma.\n");
+                pausar(NULL);
+                break;
+            }
             GenerarMateriasAleatorias(gm);
             printf("\n Se generaron %d materias.\n", 30);
 
             pausar(NULL);
             break;
-        case 6: // Salir
+        case 6:
             printf("\nGracias por usar Los C-Renitos! Cerrando sistema...\n");
             break;
         default:
             printf(" Opcion invalida. Intente de nuevo.\n");
             pausar(NULL);
         }
-    } while (opcion != 6); // La condición de salida ahora es 7
+    } while (opcion != 6);
 }

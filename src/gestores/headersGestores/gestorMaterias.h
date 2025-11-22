@@ -17,15 +17,8 @@ void AgregarMateria(GestorMaterias *gestor, const char *nombre);
 Materia *BuscarMateriaPorID(GestorMaterias *gestor, int ID);
 void EliminarMateria(GestorMaterias *gestor, int ID);
 
-// void MatricularEstudiante(GestorMaterias *gestor, int ID_materia, Estudiante *estudiante);
-
-// --- DECLARACIONES DE FUNCIONES NUEVAS/MODIFICADAS ---
-
-// Función para añadir requisitos a una materia
 void AgregarCorrelativa(Materia *materia, int ID_correlativa);
-// Función que verifica si un estudiante cumple los requisitos
 int CumpleCorrelativas(Materia *materia, Estudiante *estudiante);
-// Función modificada para verificar correlativas y usar Inscripcion
 void MatricularEstudiante(GestorMaterias *gestor, int ID_materia, Estudiante *estudiante, int aprobado_inicial);
 
 void FreeGestorMaterias(GestorMaterias *gestor);

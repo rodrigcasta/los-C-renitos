@@ -51,15 +51,8 @@ void GenerarMateriasAleatorias(GestorMaterias *gestor) {
     }
 
     srand(time(NULL));
-
     for (int i = 0; i < 30; i++) {
-        // int indiceNombre = rand() % NUM_NOMBRES;
         const char *nombre = NOMBRES_MATERIAS[i];
-
-        // int notaEntera = (rand() % 31) + 40;
-        // double notaMinima = (double)notaEntera / 10.0;
-
-        // Se llama a la función AgregarMateria definida en gestorMaterias.c
         AgregarMateria(gestor, nombre);
     }
 }
@@ -68,40 +61,78 @@ void GenerarMateriasAleatorias(GestorMaterias *gestor) {
  * Genera una cantidad específica de estudiantes con datos aleatorios
  * y los añade al GestorEstudiantes.
  */
-void GenerarEstudiantesAleatorios(GestorEstudiantes *gestor, int cantidad) {
-    if (gestor == NULL || cantidad <= 0) {
+void GenerarEstudiantesAleatorios(GestorEstudiantes *ge, GestorMaterias *gm, int cantidad) {
+    if (ge == NULL || gm == NULL || cantidad <= 0) {
         return;
     }
 
-    // Inicializa la semilla del generador de números aleatorios
-    srand(time(NULL));
+    if (gm->head_materias == NULL) {
+        printf("ADVERTENCIA: No hay materias registradas. Generando 30 materias por defecto...\n");
+        GenerarMateriasAleatorias(gm);
+    }
+
+    int max_materia_id = gm->next_ID - 1;
+
+    if (max_materia_id <= 0) {
+        printf(
+            "ERROR: No se pudo determinar el rango de IDs de materias. Cancelando asignacion aleatoria de materias.\n");
+        return;
+    }
 
     for (int i = 0; i < cantidad; i++) {
-        // 1. Nombre y Apellido aleatorio
         const char *nombre = NOMBRES_ESTUDIANTES[rand() % NUM_NOMBRES_E];
         const char *apellido = APELLIDOS_ESTUDIANTES[rand() % NUM_APELLIDOS_E];
 
-        // 2. Fecha de Nacimiento aleatoria (Ej: entre 1990 y 2005)
         int anio = 1990 + (rand() % 16);
         int mes = 1 + (rand() % 12);
-        // Cálculo simplificado de días máximos del mes
         int max_dias = (mes == 2) ? 28 : ((mes == 4 || mes == 6 || mes == 9 || mes == 11) ? 30 : 31);
         int dia = 1 + (rand() % max_dias);
 
-        char nacimiento[11]; // "dd/mm/yyyy\0"
+        char nacimiento[11];
         sprintf(nacimiento, "%02d/%02d/%d", dia, mes, anio);
 
-        // 3. Sexo (0 = Hombre, 1 = Mujer)
         int sexo = rand() % 2;
 
-        // 4. Crear y Listar el estudiante
         Estudiante *nuevoEstudiante = NewEstudiante(nombre, apellido, nacimiento, sexo);
         if (nuevoEstudiante != NULL) {
-            // La inicialización de materiasAprobadas y esGraduado ahora es manejada por NewEstudiante.
-            ListarEstudiante(gestor, nuevoEstudiante);
+            ListarEstudiante(ge, nuevoEstudiante);
+
+            for (int id_materia = 1; id_materia <= max_materia_id; id_materia++) {
+
+                if (rand() % 100 < 50) {
+                    Materia *materia = BuscarMateriaPorID(gm, id_materia);
+
+                    if (materia != NULL) {
+
+                        if (HaAprobadoMateriaGestor(nuevoEstudiante, id_materia)) {
+                            continue;
+                        }
+
+                        int aprobado = (rand() % 100 < 70) ? 1 : 0;
+
+                        if (aprobado == 1) {
+                            AprobarMateriaGestor(nuevoEstudiante, id_materia);
+
+                            Inscripcion *inscripcionAprobada = NewInscripcion(nuevoEstudiante, 1);
+                            if (inscripcionAprobada != NULL) {
+                                materia->listaInscripciones =
+                                    addElement(materia->listaInscripciones, inscripcionAprobada);
+                            }
+                        } else {
+
+                            Inscripcion *inscripcionReprobada = NewInscripcion(nuevoEstudiante, 0);
+                            if (inscripcionReprobada != NULL) {
+                                materia->listaInscripciones =
+                                    addElement(materia->listaInscripciones, inscripcionReprobada);
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
     printf("Se han generado y listado %d estudiantes aleatorios.\n", cantidad);
+    printf("Se asignaron materias aleatorias a los estudiantes (aprobadas/reprobadas).\n");
 }
 
 void ImprimirMaterias(GestorMaterias *gestor) {

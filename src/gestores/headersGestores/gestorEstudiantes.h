@@ -4,8 +4,6 @@
 #include "../../estructuras/headersEstructuras/linkedList_n.h"
 #include "../../modelos/headersModelos/estudiantes.h"
 
-// Definimos la cantidad total de materias que debe aprobar un estudiante para graduarse
-// Asumimos 30 materias basándonos en generadorAleatorio.c
 #define MATERIAS_PARA_GRADUACION 30
 
 typedef struct GestorEstudiantes {

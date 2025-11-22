@@ -1,5 +1,6 @@
 #include "headersGestores/gestorEstudiantes.h"
-#include <stdio.h> // Para printf
+#include <stdio.h>
+
 /**
  * Crea un nuevo gestor inicializando su linked list.
  */
@@ -111,7 +112,6 @@ void VerificarGraduacion(Estudiante *e) {
 
     if (materiasAprobadasCount >= MATERIAS_PARA_GRADUACION) {
         CambiarEstadoGraduadoGestor(e, 1);
-        printf("\n*** ¡FELICITACIONES! El estudiante ha alcanzado la graduacion. ***\n");
     }
 }
 

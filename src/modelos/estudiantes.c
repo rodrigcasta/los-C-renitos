@@ -16,8 +16,6 @@ Estudiante *NewEstudiante(const char *nombre, const char *apellido, const char *
     return est;
 }
 
-// Getters y Setters.
-
 int ObtenerID(const Estudiante *e) {
     return e->ID;
 }
@@ -82,7 +80,6 @@ int calcularEdad(const char *fechaNacimiento) {
     int dia, mes, anio;
     sscanf(fechaNacimiento, "%d/%d/%d", &dia, &mes, &anio);
 
-    // Obtener la fecha actual
     time_t t = time(NULL);
     struct tm *fechaActual = localtime(&t);
 
@@ -92,7 +89,6 @@ int calcularEdad(const char *fechaNacimiento) {
 
     int edad = anioActual - anio;
 
-    // Si todavía no cumplió años este año, restamos 1
     if (mesActual < mes || (mesActual == mes && diaActual < dia)) {
         edad--;
     }

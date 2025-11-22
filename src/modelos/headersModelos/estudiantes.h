@@ -1,23 +1,21 @@
 #ifndef ESTUDIANTE_H
 #define ESTUDIANTE_H
 
-#include "../../estructuras/headersEstructuras/linkedList_n.h" // HP: NECESARIO para LinkedNode
+#include "../../estructuras/headersEstructuras/linkedList_n.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
 
-typedef struct Estudiante
-{
+typedef struct Estudiante {
     char nombre[15];
     char apellido[15];
     char nacimiento[11];
     int edad;
-    int sexo; // 0 = hombre ;1 = mujer
+    int sexo;
     int ID;
-    // --- CAMPOS NUEVOS ---
-    LinkedNode *materiasAprobadas; // Lista de punteros a INT (IDs de materias)
-    int esGraduado;                // 0 = No, 1 = Sí
+    LinkedNode *materiasAprobadas;
+    int esGraduado;
 } Estudiante;
 
 Estudiante *NewEstudiante(const char *nombre, const char *apellido, const char *nacimiento, int sexo);

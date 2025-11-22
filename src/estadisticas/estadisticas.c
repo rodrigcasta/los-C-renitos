@@ -6,8 +6,7 @@
 // ESTADÍSTICAS GENERALES
 // ****************************************************
 
-EstadisticasGenerales *CalcularEstadisticasGenerales(GestorEstudiantes *ge, GestorMaterias *gm)
-{
+EstadisticasGenerales *CalcularEstadisticasGenerales(GestorEstudiantes *ge, GestorMaterias *gm) {
     if (ge == NULL || gm == NULL)
         return NULL;
 
@@ -17,25 +16,19 @@ EstadisticasGenerales *CalcularEstadisticasGenerales(GestorEstudiantes *ge, Gest
 
     stats->totalAlumnos = 0;
     stats->totalGraduados = 0;
-
-    // Contar Alumnos y Graduados (depende de Estudiante->esGraduado)
     LinkedNode *cursorEstudiante = ge->estudiantes;
-    while (cursorEstudiante != NULL)
-    {
+    while (cursorEstudiante != NULL) {
         stats->totalAlumnos++;
         Estudiante *est = (Estudiante *)cursorEstudiante->data;
-        if (est->esGraduado == 1)
-        {
+        if (est->esGraduado == 1) {
             stats->totalGraduados++;
         }
         cursorEstudiante = cursorEstudiante->next;
     }
 
-    // Contar Materias
     stats->totalMaterias = 0;
     DoubleLinkedNode *cursorMateria = gm->head_materias;
-    while (cursorMateria != NULL)
-    {
+    while (cursorMateria != NULL) {
         stats->totalMaterias++;
         cursorMateria = cursorMateria->next;
     }
@@ -43,10 +36,8 @@ EstadisticasGenerales *CalcularEstadisticasGenerales(GestorEstudiantes *ge, Gest
     return stats;
 }
 
-void MostrarEstadisticasGenerales(EstadisticasGenerales *stats)
-{
-    if (stats == NULL)
-    {
+void MostrarEstadisticasGenerales(EstadisticasGenerales *stats) {
+    if (stats == NULL) {
         printf("\nNo hay estadisticas generales disponibles.\n");
         return;
     }
@@ -62,44 +53,36 @@ void MostrarEstadisticasGenerales(EstadisticasGenerales *stats)
 // ESTADÍSTICA DE PROMEDIO DE APROBADOS
 // ****************************************************
 
-float CalcularPromedioAprobadosMateria(Materia *materia)
-{
-    if (materia == NULL || materia->listaInscripciones == NULL)
-    {
+float CalcularPromedioAprobadosMateria(Materia *materia) {
+    if (materia == NULL || materia->listaInscripciones == NULL) {
         return 0.0f;
     }
 
     int totalInscritos = 0;
     int totalAprobados = 0;
 
-    // Recorre la lista de Inscripciones (depende de Inscripcion->estaAprobado)
     DoubleLinkedNode *current = materia->listaInscripciones;
-    while (current != NULL)
-    {
+    while (current != NULL) {
         totalInscritos++;
 
         Inscripcion *insc = (Inscripcion *)current->data;
 
-        if (insc->estaAprobado == 1)
-        {
+        if (insc->estaAprobado == 1) {
             totalAprobados++;
         }
 
         current = current->next;
     }
 
-    if (totalInscritos == 0)
-    {
+    if (totalInscritos == 0) {
         return 0.0f;
     }
 
     return (float)totalAprobados / totalInscritos;
 }
 
-void MostrarPromedioAprobadosPorMateria(GestorMaterias *gm)
-{
-    if (gm == NULL || gm->head_materias == NULL)
-    {
+void MostrarPromedioAprobadosPorMateria(GestorMaterias *gm) {
+    if (gm == NULL || gm->head_materias == NULL) {
         printf("\nNo hay materias registradas.\n");
         return;
     }
@@ -107,8 +90,7 @@ void MostrarPromedioAprobadosPorMateria(GestorMaterias *gm)
     printf("\n--- PROMEDIO DE APROBADOS POR MATERIA ---\n");
     DoubleLinkedNode *cursorMateria = gm->head_materias;
 
-    while (cursorMateria != NULL)
-    {
+    while (cursorMateria != NULL) {
         Materia *materia = (Materia *)cursorMateria->data;
         float promedio = CalcularPromedioAprobadosMateria(materia);
 

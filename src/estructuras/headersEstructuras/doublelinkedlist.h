@@ -1,7 +1,7 @@
 #ifndef DOUBLELINKEDLIST_H
 #define DOUBLELINKEDLIST_H
 
-#include <stdlib.h> // Para usar NULL
+#include <stdlib.h>
 
 typedef struct DoubleLinkedNode {
     void *data;
@@ -9,9 +9,8 @@ typedef struct DoubleLinkedNode {
     struct DoubleLinkedNode *next;
 } DoubleLinkedNode;
 
-// Funciones
 DoubleLinkedNode *newDoublyLinkedList();
-DoubleLinkedNode *addElement(DoubleLinkedNode *head, void *data); 
+DoubleLinkedNode *addElement(DoubleLinkedNode *head, void *data);
 int SizeList(DoubleLinkedNode *head);
 DoubleLinkedNode *FindElement(DoubleLinkedNode *head, int posicion);
 void *RemoveElement(DoubleLinkedNode **head, int posicion);

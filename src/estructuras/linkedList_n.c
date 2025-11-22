@@ -69,7 +69,7 @@ LinkedNode *insertPos(LinkedNode *headLista, void *dato, int pos) {
 LinkedNode *appendNode(LinkedNode *headLista, void *dato) {
     LinkedNode *nodo = newLinkedNodeData(dato);
     if (headLista == NULL) {
-        return nodo; // la lista estaba vacía, el nuevo nodo es la cabeza
+        return nodo;
     }
     LinkedNode *cola = getTail(headLista);
     cola->next = nodo;
@@ -162,7 +162,6 @@ LinkedNode *removeTail(LinkedNode *headLista) {
         return NULL;
     }
     if (headLista->next == NULL) {
-        // Un solo nodo
         free(headLista);
         return NULL;
     }
@@ -231,11 +230,9 @@ void freeListAndData(LinkedNode *headLista) {
     while (cursor != NULL) {
         LinkedNode *temp = cursor;
         cursor = cursor->next;
-        // 1. Liberar los datos internos (los int* de los IDs)
         if (temp->data != NULL) {
             free(temp->data);
         }
-        // 2. Liberar el nodo
         free(temp);
     }
 }

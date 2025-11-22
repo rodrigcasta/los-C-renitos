@@ -2,19 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Materia *NewMateria(const char *nombre)
-// {
-//     Materia *m = malloc(sizeof(Materia));
-//     if (m == NULL)
-//         return NULL;
-
-//     // El ID será asignado por el gestor
-//     m->ID = 0;
-//     strcpy(m->nombre, nombre);
-//     m->listaEstudiantes = NULL;
-//     return m;
-// }
-
 Materia *NewMateria(const char *nombre) {
     Materia *m = malloc(sizeof(Materia));
     if (m == NULL)
@@ -80,10 +67,8 @@ void EliminarMateria(GestorMaterias *gestor, int ID) {
     while (current != NULL) {
         Materia *materia = (Materia *)current->data;
         if (materia->ID == ID) {
-            // 1. Llamar a la función que devuelve los datos
             Materia *materia_a_liberar = (Materia *)RemoveElement(&gestor->head_materias, posicion);
 
-            // 2. Liberar la estructura Materia y su lista anidada
             if (materia_a_liberar != NULL) {
                 FreeMateria(materia_a_liberar);
             }
@@ -102,41 +87,27 @@ void MatricularEstudiante(GestorMaterias *gestor, int ID_materia, Estudiante *es
         return;
     }
 
-    // --- 1. VERIFICACIÓN DE DUPLICADOS (NUEVA LÓGICA) ---
     DoubleLinkedNode *cursor = materia->listaInscripciones;
     while (cursor != NULL) {
         Inscripcion *insc = (Inscripcion *)cursor->data;
-        // Comprobar si la dirección de memoria del estudiante es la misma
         if (insc->estudiante == estudiante) {
             printf("INSCRIPCION FALLIDA: El estudiante ya esta matriculado en esta materia.\n");
             return;
         }
         cursor = cursor->next;
     }
-    // ----------------------------------------------------
-
-    // 2. VERIFICACIÓN DE CORRELATIVIDAD (Mueve el paso original)
     if (CumpleCorrelativas(materia, estudiante) == 0) {
         printf("INSCRIPCION FALLIDA: No cumple con las correlativas.\n");
         return;
     }
 
-    // 3. CREAR INSCRIPCIÓN
     Inscripcion *nuevaInscripcion = NewInscripcion(estudiante, aprobado_inicial);
     if (nuevaInscripcion == NULL)
         return;
 
-    // 4. AÑADIR A LA LISTA DE INSCRIPCIONES
     materia->listaInscripciones = addElement(materia->listaInscripciones, nuevaInscripcion);
     printf("INSCRIPCION EXITOSA.\n");
 }
-// void FreeMateria(Materia *materia)
-// {
-//     if (materia == NULL)
-//         return;
-//     FreeDoubleLinkedListNodes(materia->listaEstudiantes);
-//     free(materia);
-// }
 
 void FreeMateria(Materia *materia) {
     if (materia == NULL)
@@ -174,13 +145,12 @@ void AgregarCorrelativa(Materia *materia, int ID_correlativa) {
         return;
     *nuevoID = ID_correlativa;
 
-    // Usamos appendNode de tu linkedList_n.c en el campo correlativasID
     materia->correlativasID = appendNode(materia->correlativasID, nuevoID);
 }
 
 int CumpleCorrelativas(Materia *materia, Estudiante *estudiante) {
     if (materia == NULL || estudiante == NULL || materia->correlativasID == NULL) {
-        return 1; // Si no hay correlativas, se asume que cumple.
+        return 1;
     }
 
     LinkedNode *cursor = materia->correlativasID;
@@ -192,15 +162,14 @@ int CumpleCorrelativas(Materia *materia, Estudiante *estudiante) {
 
         int ID_correlativa = *ID_correlativa_ptr;
 
-        // Usamos la función del GestorEstudiantes para verificar
         if (HaAprobadoMateriaGestor(estudiante, ID_correlativa) == 0) {
-            return 0; // Falla: Le falta una correlativa
+            return 0;
         }
 
         cursor = cursor->next;
     }
 
-    return 1; // Cumple con todas
+    return 1;
 }
 
 void FreeGestorMaterias(GestorMaterias *gestor) {
