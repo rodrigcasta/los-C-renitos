@@ -979,69 +979,6 @@ void MenuGestorEstudiantes(GestorEstudiantes *ge, GestorMaterias *gm)
     } while (opcion != 6);
 }
 
-// void MenuPrincipal(GestorEstudiantes *ge, GestorMaterias *gm) {
-//     int opcion;
-//     int cantidad;
-
-//     do {
-//         limpiarPantalla();
-//         printf("\n// Sistema de estudiantes de ingenieria en computacion - Los C-Renitos //\n");
-//         printf("||              BIENVENIDO                ||\n");
-//         printf("1. Gestionar estudiantes\n");
-//         printf("2. Gestionar materias\n");
-//         printf("3. Estadisticas generales\n");
-//         printf("4. Generar estudiantes aleatorios\n");
-//         printf("5. Generar materias\n");
-//         printf("6. Salir del sistema\n");
-//         printf("=============================================\n");
-
-//         opcion = leerOpcion();
-//         limpiarPantalla();
-
-//         switch (opcion) {
-//         case 1:
-//             MenuGestorEstudiantes(ge, gm);
-//             break;
-//         case 2:
-//             MenuGestorMaterias(gm);
-//             break;
-//         case 3:
-//             MenuEstadisticas(ge, gm);
-//             break;
-//         case 4:
-//             printf("\n--- GENERAR ESTUDIANTES ALEATORIOS ---\n");
-//             printf("Ingrese la cantidad de estudiantes a generar: ");
-//             cantidad = leerEntero();
-
-//             if (cantidad > 0) {
-//                 GenerarEstudiantesAleatorios(ge, gm, cantidad);
-//             } else {
-//                 printf("La cantidad debe ser mayor a cero.\n");
-//             }
-//             pausar(NULL);
-//             break;
-//         case 5:
-//             printf("\n--- GENERAR MATERIAS ---\n");
-//             if (gm->head_materias != NULL) {
-//                 printf("\n Ya existen materias en la plataforma.\n");
-//                 pausar(NULL);
-//                 break;
-//             }
-//             GenerarMateriasAleatorias(gm);
-//             printf("\n Se generaron %d materias.\n", 30);
-
-//             pausar(NULL);
-//             break;
-//         case 6:
-//             printf("\nGracias por usar Los C-Renitos! Cerrando sistema...\n");
-//             break;
-//         default:
-//             printf(" Opcion invalida. Intente de nuevo.\n");
-//             pausar(NULL);
-//         }
-//     } while (opcion != 6);
-// }
-
 void MenuPrincipal(GestorEstudiantes *ge, GestorMaterias *gm)
 {
     int opcion;
