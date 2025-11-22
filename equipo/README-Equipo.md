@@ -27,7 +27,7 @@ La siguiente tabla es un ejemplo, deben completarla con los roles reales que asu
 - **Responsable**: [Castañeda Rodrigo]  
 - **Tareas**: Funciones CRUD - Algoritmos de busqueda - Conexion de modulos
 
-### Módulo de Carreras de Grado
+### Módulo de Test
 - **Responsable**: [Arbo Milena]
 - **Tareas**: Funciones CRUD - Algoritmos de busqueda - Conexion de modulos
 
@@ -36,10 +36,8 @@ La siguiente tabla es un ejemplo, deben completarla con los roles reales que asu
 - **Tareas**: Algoritmos de busqueda - Conexion de modulos - analisis de datos
 
 ### Módulo de Interfaz
-- **Responsable**: []
+- **Responsable**: [Aguirre Nahuel, Arbo Milena, Castañeda Rodrigo, Piancatelli Hernan]
 - **Tareas**: Interfaz CLI/API  
-
-
 
 ## Normas de Colaboración
 
@@ -55,3 +53,25 @@ La siguiente tabla es un ejemplo, deben completarla con los roles reales que asu
 - **Chat grupal**: [WhatsApp/Discord/]
 - **Reuniones**: [Sábados 09:00hs ]
 - **Documentos compartidos**: [Google Drive/OneDrive]
+
+------------------------------------------------------------------------------------
+
+## Puntos extras implementados
+
+-   Test.
+-   Generador de datos para estudiantes y materias.
+-   Utilización de estructura DoubleLinkedList para desarrollo de correlatividades de materias.
+-   Estadisticas generales:
+    1. Cantidad total de alumnos en la carrera.
+    2. Cantidad total de materias ofrecida.
+    3. Cantidad de alumnos graduados.
+    4. Promedio de aprobados por materia.
+-   Utils:
+    Validaciones (fechas, lectura de datos de entrada, etc.)
+-   Poder elegir el estudiante y/o materia de un grupo reducido:
+    Ejemplo: 
+        .Poder rendir materias siempre y cuando esté anotado a la misma y no la haya rendido previamente.
+        .Acceder al estudiante deseado por su ID y poder realizar distintas acciones como su edición, poder anotarse a materias, rendirlas, visualizarlas y demás.
+-   Interfaz CLI.
+-   Arquitectura modular clara.
+
