@@ -5,6 +5,7 @@
 #include "../../gestores/headersGestores/gestorEstudiantes.h"
 #include "../../gestores/headersGestores/gestorMaterias.h"
 #include "../../utils/headersUtils/utilidades.h"
+#include "../../test/headerTest/runner.h"
 #include <stdio.h>
 
 void MostrarEstudianteSimple(const Estudiante *e);
@@ -29,5 +30,7 @@ void MenuPrincipal(GestorEstudiantes *ge, GestorMaterias *gm);
 void MenuGestorEstudiantes(GestorEstudiantes *ge, GestorMaterias *gm);
 void MenuGestorMaterias(GestorMaterias *gm);
 void MenuEstadisticas(GestorEstudiantes *ge, GestorMaterias *gm);
+
+void EjecutarCasosPrueba(GestorEstudiantes *ge, GestorMaterias *gm);
 
 #endif

@@ -12,8 +12,10 @@
 /**
  * Muestra la información básica de un estudiante.
  */
-void MostrarEstudianteSimple(const Estudiante *e) {
-    if (e == NULL) {
+void MostrarEstudianteSimple(const Estudiante *e)
+{
+    if (e == NULL)
+    {
         return;
     }
     printf("ID: %d | Nombre: %s %s | Edad: %d | Sexo: %s | Nacimiento: %s\n", ObtenerID(e), ObtenerNombre(e),
@@ -23,15 +25,18 @@ void MostrarEstudianteSimple(const Estudiante *e) {
 /**
  * Muestra la lista completa de estudiantes.
  */
-void MostrarEstudiantesLista(GestorEstudiantes *ge) {
-    if (ge == NULL || ge->estudiantes == NULL) {
+void MostrarEstudiantesLista(GestorEstudiantes *ge)
+{
+    if (ge == NULL || ge->estudiantes == NULL)
+    {
         printf("\n[ No hay estudiantes registrados. ]\n");
         return;
     }
 
     printf("\n--- LISTA DE ESTUDIANTES REGISTRADOS ---\n");
     LinkedNode *cursor = ge->estudiantes;
-    while (cursor != NULL) {
+    while (cursor != NULL)
+    {
         MostrarEstudianteSimple((Estudiante *)cursor->data);
         cursor = cursor->next;
     }
@@ -41,14 +46,17 @@ void MostrarEstudiantesLista(GestorEstudiantes *ge) {
 /**
  * Muestra las materias disponibles para anotarse.
  */
-void MostrarMateriasDisponibles(GestorMaterias *gm) {
-    if (gm == NULL || gm->head_materias == NULL) {
+void MostrarMateriasDisponibles(GestorMaterias *gm)
+{
+    if (gm == NULL || gm->head_materias == NULL)
+    {
         printf("\n[ No hay materias disponibles. ]\n");
         return;
     }
     printf("\n--- MATERIAS DISPONIBLES ---\n");
     DoubleLinkedNode *cursor = gm->head_materias;
-    while (cursor != NULL) {
+    while (cursor != NULL)
+    {
         Materia *m = (Materia *)cursor->data;
         printf("ID: %d | Nombre: %s\n", m->ID, m->nombre);
         cursor = cursor->next;
@@ -59,20 +67,26 @@ void MostrarMateriasDisponibles(GestorMaterias *gm) {
 /**
  * Muestra las materias aprobadas por un estudiante.
  */
-void MostrarMateriasAprobadasEstudiante(const Estudiante *e, GestorMaterias *gm) {
-    if (e == NULL || e->materiasAprobadas == NULL) {
+void MostrarMateriasAprobadasEstudiante(const Estudiante *e, GestorMaterias *gm)
+{
+    if (e == NULL || e->materiasAprobadas == NULL)
+    {
         printf("\n[ El estudiante no tiene materias aprobadas. ]\n");
         return;
     }
     printf("\n--- MATERIAS APROBADAS ---\n");
     LinkedNode *cursor = e->materiasAprobadas;
     int cont = 0;
-    while (cursor != NULL) {
+    while (cursor != NULL)
+    {
         int *ID_aprobado = (int *)cursor->data;
         Materia *materia = BuscarMateriaPorID(gm, *ID_aprobado);
-        if (materia != NULL) {
+        if (materia != NULL)
+        {
             printf("%d. ID: %d | Nombre: %s\n", ++cont, *ID_aprobado, materia->nombre);
-        } else {
+        }
+        else
+        {
             printf("%d. ID: %d | Nombre: [Materia Eliminada]\n", ++cont, *ID_aprobado);
         }
         cursor = cursor->next;
@@ -83,14 +97,17 @@ void MostrarMateriasAprobadasEstudiante(const Estudiante *e, GestorMaterias *gm)
 /**
  * Muestra una lista temporal de estudiantes (ej. resultados de una búsqueda).
  */
-void MostrarEstudiantesBusqueda(LinkedNode *listaResultados) {
-    if (listaResultados == NULL) {
+void MostrarEstudiantesBusqueda(LinkedNode *listaResultados)
+{
+    if (listaResultados == NULL)
+    {
         printf("\n[ No se encontraron estudiantes con ese criterio. ]\n");
         return;
     }
     printf("\n--- RESULTADOS DE LA BUSQUEDA ---\n");
     LinkedNode *cursor = listaResultados;
-    while (cursor != NULL) {
+    while (cursor != NULL)
+    {
         MostrarEstudianteSimple((Estudiante *)cursor->data);
         cursor = cursor->next;
     }
@@ -104,7 +121,8 @@ void MostrarEstudiantesBusqueda(LinkedNode *listaResultados) {
 /**
  * Implementa la opción 2: Dar de alta estudiante.
  */
-void AltaEstudiante(GestorEstudiantes *ge) {
+void AltaEstudiante(GestorEstudiantes *ge)
+{
     char nombre[15];
     char apellido[15];
     char nacimiento[11];
@@ -115,49 +133,64 @@ void AltaEstudiante(GestorEstudiantes *ge) {
 
     printf("\n--- DAR DE ALTA ESTUDIANTE ---\n");
 
-    do {
+    do
+    {
         printf("Ingrese nombre (solo letras): ");
         leerCadena(nombre, 15);
         nombreValido = 1;
 
-        if (nombre[0] == '\0') {
+        if (nombre[0] == '\0')
+        {
             nombreValido = 0;
-        } else {
-            for (int i = 0; nombre[i] != '\0'; i++) {
-                if (!isalpha((unsigned char)nombre[i]) && !isspace((unsigned char)nombre[i])) {
+        }
+        else
+        {
+            for (int i = 0; nombre[i] != '\0'; i++)
+            {
+                if (!isalpha((unsigned char)nombre[i]) && !isspace((unsigned char)nombre[i]))
+                {
                     nombreValido = 0;
                     break;
                 }
             }
         }
 
-        if (!nombreValido) {
+        if (!nombreValido)
+        {
             printf(" ERROR: El nombre solo debe contener letras y espacios.\n");
         }
     } while (!nombreValido);
 
-    do {
+    do
+    {
         printf("Ingrese apellido (solo letras): ");
         leerCadena(apellido, 15);
         apellidoValido = 1;
 
-        if (apellido[0] == '\0') {
+        if (apellido[0] == '\0')
+        {
             apellidoValido = 0;
-        } else {
-            for (int i = 0; apellido[i] != '\0'; i++) {
-                if (!isalpha((unsigned char)apellido[i]) && !isspace((unsigned char)apellido[i])) {
+        }
+        else
+        {
+            for (int i = 0; apellido[i] != '\0'; i++)
+            {
+                if (!isalpha((unsigned char)apellido[i]) && !isspace((unsigned char)apellido[i]))
+                {
                     apellidoValido = 0;
                     break;
                 }
             }
         }
 
-        if (!apellidoValido) {
+        if (!apellidoValido)
+        {
             printf(" ERROR: El apellido solo debe contener letras y espacios.\n");
         }
     } while (!apellidoValido);
 
-    do {
+    do
+    {
         printf("Ingrese fecha de nacimiento en formato dd/mm/yyyy (con las barras incluidas): ");
         leerCadena(nacimiento, 11);
         fechaValida = 1;
@@ -166,31 +199,46 @@ void AltaEstudiante(GestorEstudiantes *ge) {
         int chars_leidos = 0;
         int resultado = sscanf(nacimiento, "%d/%d/%d%n", &dia, &mes, &anio, &chars_leidos);
 
-        if (resultado != 3 || chars_leidos != 10 || nacimiento[10] != '\0') {
+        if (resultado != 3 || chars_leidos != 10 || nacimiento[10] != '\0')
+        {
             fechaValida = 0;
-        } else {
+        }
+        else
+        {
             int esBisiesto = (anio % 4 == 0 && anio % 100 != 0) || (anio % 400 == 0);
 
-            if (mes < 1 || mes > 12 || anio < 1900 || anio > ObtenerAnioActual()) {
+            if (mes < 1 || mes > 12 || anio < 1900 || anio > ObtenerAnioActual())
+            {
                 fechaValida = 0;
-            } else {
+            }
+            else
+            {
                 int diasEnMes[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
                 int maxDias = diasEnMes[mes];
 
-                if (mes == 2 && esBisiesto) {
+                if (mes == 2 && esBisiesto)
+                {
                     maxDias = 29;
                 }
 
-                if (dia < 1 || dia > maxDias) {
+                if (dia < 1 || dia > maxDias)
+                {
                     fechaValida = 0;
-                } else {
-                    if (anio == ObtenerAnioActual()) {
+                }
+                else
+                {
+                    if (anio == ObtenerAnioActual())
+                    {
                         int mesActual = ObtenerMesActual();
-                        if (mes > mesActual) {
+                        if (mes > mesActual)
+                        {
                             fechaValida = 0;
-                        } else if (mes == mesActual) {
+                        }
+                        else if (mes == mesActual)
+                        {
                             int diaActual = ObtenerDiaActual();
-                            if (dia > diaActual) {
+                            if (dia > diaActual)
+                            {
                                 fechaValida = 0;
                             }
                         }
@@ -199,16 +247,19 @@ void AltaEstudiante(GestorEstudiantes *ge) {
             }
         }
 
-        if (!fechaValida) {
+        if (!fechaValida)
+        {
             printf(" ERROR: Fecha invalida. Verifique el formato (dd/mm/yyyy) y la validez logica (ej. no puede ser "
                    "futura).\n");
         }
     } while (!fechaValida);
 
-    do {
+    do
+    {
         printf("Ingrese su sexo (0 = Hombre, 1 = Mujer): ");
         sexo = leerEntero();
-        if (sexo != 0 && sexo != 1) {
+        if (sexo != 0 && sexo != 1)
+        {
             printf(" ERROR: Opcion de sexo invalida. Debe ser 0 o 1.\n");
         }
     } while (sexo != 0 && sexo != 1);
@@ -226,7 +277,8 @@ void AltaEstudiante(GestorEstudiantes *ge) {
 /**
  * Implementa la opción 4: Eliminar estudiante.
  */
-void EliminarEstudiante(GestorEstudiantes *ge) {
+void EliminarEstudiante(GestorEstudiantes *ge)
+{
     int id;
     char confirmacion[5];
     Estudiante *e;
@@ -236,7 +288,8 @@ void EliminarEstudiante(GestorEstudiantes *ge) {
 
     e = BuscarEstudianteID(ge, id);
 
-    if (e == NULL) {
+    if (e == NULL)
+    {
         printf("ERROR: Estudiante con ID %d no encontrado.\n", id);
         pausar(NULL);
         return;
@@ -248,10 +301,13 @@ void EliminarEstudiante(GestorEstudiantes *ge) {
     printf("Confirma que elimina el estudiante (s/n): ");
     leerCadena(confirmacion, 5);
 
-    if (strcmp(confirmacion, "s") == 0 || strcmp(confirmacion, "S") == 0) {
+    if (strcmp(confirmacion, "s") == 0 || strcmp(confirmacion, "S") == 0)
+    {
         DeslistarEstudianteID(ge, id);
         printf("\n Estudiante eliminado correctamente.\n");
-    } else {
+    }
+    else
+    {
         printf("\n Operacion cancelada.\n");
     }
     pausar(NULL);
@@ -260,7 +316,8 @@ void EliminarEstudiante(GestorEstudiantes *ge) {
 /**
  * Implementa la opción 5: Buscar estudiante.
  */
-void BuscarEstudiante(GestorEstudiantes *ge) {
+void BuscarEstudiante(GestorEstudiantes *ge)
+{
     int opcion;
     int id;
     char nombre[15];
@@ -279,14 +336,18 @@ void BuscarEstudiante(GestorEstudiantes *ge) {
     opcion = leerOpcion();
     limpiarPantalla();
 
-    switch (opcion) {
+    switch (opcion)
+    {
     case 1:
         id = leerID("Ingrese ID a buscar: ");
         est = BuscarEstudianteID(ge, id);
-        if (est != NULL) {
+        if (est != NULL)
+        {
             printf("\n Estudiante encontrado:\n");
             MostrarEstudianteSimple(est);
-        } else {
+        }
+        else
+        {
             printf("\n[ Estudiante con ID %d no encontrado. ]\n", id);
         }
         break;
@@ -294,10 +355,13 @@ void BuscarEstudiante(GestorEstudiantes *ge) {
         printf("Ingrese Nombre a buscar: ");
         leerCadena(nombre, 15);
         est = BuscarEstudianteNombre(ge, nombre);
-        if (est != NULL) {
+        if (est != NULL)
+        {
             printf("\n Estudiante encontrado:\n");
             MostrarEstudianteSimple(est);
-        } else {
+        }
+        else
+        {
             printf("\n[ Estudiante con nombre '%s' no encontrado. ]\n", nombre);
         }
         break;
@@ -306,7 +370,8 @@ void BuscarEstudiante(GestorEstudiantes *ge) {
         v1 = leerEntero();
         printf("Ingrese edad maxima (v2): ");
         v2 = leerEntero();
-        if (v1 > v2) {
+        if (v1 > v2)
+        {
             int temp = v1;
             v1 = v2;
             v2 = temp;
@@ -323,7 +388,8 @@ void BuscarEstudiante(GestorEstudiantes *ge) {
     pausar(NULL);
 }
 
-void MenuModificarEstudiante(Estudiante *e) {
+void MenuModificarEstudiante(Estudiante *e)
+{
     int opcion;
     char nuevoValor[20];
     int nuevoSexo;
@@ -332,7 +398,8 @@ void MenuModificarEstudiante(Estudiante *e) {
     int apellidoValido;
     int fechaValida;
 
-    do {
+    do
+    {
         limpiarPantalla();
         printf("\n|| MODIFICAR PARAMETROS DE %s %s ||\n", ObtenerNombre(e), ObtenerApellido(e));
         printf("1. Nombre (Actual: %s)\n", ObtenerNombre(e));
@@ -346,25 +413,33 @@ void MenuModificarEstudiante(Estudiante *e) {
         opcion = leerOpcion();
         limpiarPantalla();
 
-        switch (opcion) {
+        switch (opcion)
+        {
         case 1:
-            do {
+            do
+            {
                 printf("Ingrese nuevo nombre (solo letras): ");
                 leerCadena(nuevoValor, 15);
                 nombreValido = 1;
 
-                if (nuevoValor[0] == '\0') {
+                if (nuevoValor[0] == '\0')
+                {
                     nombreValido = 0;
-                } else {
-                    for (int i = 0; nuevoValor[i] != '\0'; i++) {
-                        if (!isalpha((unsigned char)nuevoValor[i]) && !isspace((unsigned char)nuevoValor[i])) {
+                }
+                else
+                {
+                    for (int i = 0; nuevoValor[i] != '\0'; i++)
+                    {
+                        if (!isalpha((unsigned char)nuevoValor[i]) && !isspace((unsigned char)nuevoValor[i]))
+                        {
                             nombreValido = 0;
                             break;
                         }
                     }
                 }
 
-                if (!nombreValido) {
+                if (!nombreValido)
+                {
                     printf("ERROR: El nombre solo debe contener letras y espacios.\n");
                 }
             } while (!nombreValido);
@@ -374,23 +449,30 @@ void MenuModificarEstudiante(Estudiante *e) {
             break;
 
         case 2:
-            do {
+            do
+            {
                 printf("Ingrese nuevo apellido (solo letras): ");
                 leerCadena(nuevoValor, 15);
                 apellidoValido = 1;
 
-                if (nuevoValor[0] == '\0') {
+                if (nuevoValor[0] == '\0')
+                {
                     apellidoValido = 0;
-                } else {
-                    for (int i = 0; nuevoValor[i] != '\0'; i++) {
-                        if (!isalpha((unsigned char)nuevoValor[i]) && !isspace((unsigned char)nuevoValor[i])) {
+                }
+                else
+                {
+                    for (int i = 0; nuevoValor[i] != '\0'; i++)
+                    {
+                        if (!isalpha((unsigned char)nuevoValor[i]) && !isspace((unsigned char)nuevoValor[i]))
+                        {
                             apellidoValido = 0;
                             break;
                         }
                     }
                 }
 
-                if (!apellidoValido) {
+                if (!apellidoValido)
+                {
                     printf("ERROR: El apellido solo debe contener letras y espacios.\n");
                 }
             } while (!apellidoValido);
@@ -400,7 +482,8 @@ void MenuModificarEstudiante(Estudiante *e) {
             break;
 
         case 3:
-            do {
+            do
+            {
                 printf("Ingrese nueva fecha de nacimiento (dd/mm/yyyy): ");
                 leerCadena(nuevoValor, 11);
                 fechaValida = 1;
@@ -409,31 +492,46 @@ void MenuModificarEstudiante(Estudiante *e) {
                 int chars_leidos = 0;
                 int resultado = sscanf(nuevoValor, "%d/%d/%d%n", &dia, &mes, &anio, &chars_leidos);
 
-                if (resultado != 3 || chars_leidos != 10 || nuevoValor[10] != '\0') {
+                if (resultado != 3 || chars_leidos != 10 || nuevoValor[10] != '\0')
+                {
                     fechaValida = 0;
-                } else {
+                }
+                else
+                {
                     int esBisiesto = (anio % 4 == 0 && anio % 100 != 0) || (anio % 400 == 0);
 
-                    if (mes < 1 || mes > 12 || anio < 1900 || anio > ObtenerAnioActual()) {
+                    if (mes < 1 || mes > 12 || anio < 1900 || anio > ObtenerAnioActual())
+                    {
                         fechaValida = 0;
-                    } else {
+                    }
+                    else
+                    {
                         int diasEnMes[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
                         int maxDias = diasEnMes[mes];
 
-                        if (mes == 2 && esBisiesto) {
+                        if (mes == 2 && esBisiesto)
+                        {
                             maxDias = 29;
                         }
 
-                        if (dia < 1 || dia > maxDias) {
+                        if (dia < 1 || dia > maxDias)
+                        {
                             fechaValida = 0;
-                        } else {
-                            if (anio == ObtenerAnioActual()) {
+                        }
+                        else
+                        {
+                            if (anio == ObtenerAnioActual())
+                            {
                                 int mesActual = ObtenerMesActual();
-                                if (mes > mesActual) {
+                                if (mes > mesActual)
+                                {
                                     fechaValida = 0;
-                                } else if (mes == mesActual) {
+                                }
+                                else if (mes == mesActual)
+                                {
                                     int diaActual = ObtenerDiaActual();
-                                    if (dia > diaActual) {
+                                    if (dia > diaActual)
+                                    {
                                         fechaValida = 0;
                                     }
                                 }
@@ -442,7 +540,8 @@ void MenuModificarEstudiante(Estudiante *e) {
                     }
                 }
 
-                if (!fechaValida) {
+                if (!fechaValida)
+                {
                     printf("ERROR: Fecha invalida. Verifique el formato (dd/mm/yyyy) y la validez logica (ej. no puede "
                            "ser futura).\n");
                 }
@@ -453,10 +552,12 @@ void MenuModificarEstudiante(Estudiante *e) {
             break;
 
         case 4:
-            do {
+            do
+            {
                 printf("Ingrese nuevo sexo (0 = Hombre, 1 = Mujer): ");
                 nuevoSexo = leerEntero();
-                if (nuevoSexo != 0 && nuevoSexo != 1) {
+                if (nuevoSexo != 0 && nuevoSexo != 1)
+                {
                     printf("ERROR: Opcion de sexo invalida. Debe ser 0 o 1.\n");
                 }
             } while (nuevoSexo != 0 && nuevoSexo != 1);
@@ -477,39 +578,48 @@ void MenuModificarEstudiante(Estudiante *e) {
  * Implementa la opción 3: Rendir materia del menú de estudiante.
  * Asume que el estudiante ya está inscrito.
  */
-void RendirMateria(Estudiante *e, Materia *materia) {
+void RendirMateria(Estudiante *e, Materia *materia)
+{
     DoubleLinkedNode *cursor = materia->listaInscripciones;
     Inscripcion *inscripcion = NULL;
-    while (cursor != NULL) {
+    while (cursor != NULL)
+    {
         Inscripcion *i = (Inscripcion *)cursor->data;
-        if (i->estudiante == e) {
+        if (i->estudiante == e)
+        {
             inscripcion = i;
             break;
         }
         cursor = cursor->next;
     }
 
-    if (inscripcion == NULL) {
+    if (inscripcion == NULL)
+    {
         printf("ERROR: El estudiante no esta inscrito en esta materia.\n");
         return;
     }
 
-    if (HaAprobadoMateriaGestor(e, materia->ID)) {
+    if (HaAprobadoMateriaGestor(e, materia->ID))
+    {
         printf("Advertencia: El estudiante ya aprobo esta materia.\n");
         return;
     }
 
     int aprobacion;
-    do {
+    do
+    {
         printf("Ingrese resultado (1 = Aprobado, 0 = Reprobado): ");
         aprobacion = leerEntero();
     } while (aprobacion != 0 && aprobacion != 1);
 
-    if (aprobacion == 1) {
+    if (aprobacion == 1)
+    {
         inscripcion->estaAprobado = 1;
         AprobarMateriaGestor(e, materia->ID);
         printf("Materia '%s' aprobada e historico actualizado.\n", materia->nombre);
-    } else {
+    }
+    else
+    {
         inscripcion->estaAprobado = 0;
         printf("Materia '%s' reprobada. Inscripcion actualizada.\n", materia->nombre);
     }
@@ -518,9 +628,11 @@ void RendirMateria(Estudiante *e, Materia *materia) {
 /**
  * Implementa la opción 4: Dar de baja materia del menú de estudiante.
  */
-void DarDeBajaInscripcion(Estudiante *e, Materia *materia) {
+void DarDeBajaInscripcion(Estudiante *e, Materia *materia)
+{
 
-    if (HaAprobadoMateriaGestor(e, materia->ID)) {
+    if (HaAprobadoMateriaGestor(e, materia->ID))
+    {
         printf("\n ERROR: No puede darse de baja. La materia '%s' ya esta registrada como APROBADA en el historial del "
                "estudiante.\n",
                materia->nombre);
@@ -530,11 +642,14 @@ void DarDeBajaInscripcion(Estudiante *e, Materia *materia) {
     DoubleLinkedNode *current = materia->listaInscripciones;
     int posicion = 0;
 
-    while (current != NULL) {
+    while (current != NULL)
+    {
         Inscripcion *insc = (Inscripcion *)current->data;
-        if (insc->estudiante == e) {
+        if (insc->estudiante == e)
+        {
             Inscripcion *insc_a_liberar = (Inscripcion *)RemoveElement(&materia->listaInscripciones, posicion);
-            if (insc_a_liberar != NULL) {
+            if (insc_a_liberar != NULL)
+            {
                 FreeInscripcion(insc_a_liberar);
                 printf("Inscripcion eliminada para la materia '%s'.\n", materia->nombre);
             }
@@ -550,14 +665,16 @@ void DarDeBajaInscripcion(Estudiante *e, Materia *materia) {
 /**
  * Menú para interactuar con un estudiante específico (Opción 3 del gestor).
  */
-void MenuAccederEstudiante(Estudiante *e, GestorMaterias *gm, GestorEstudiantes *ge) {
+void MenuAccederEstudiante(Estudiante *e, GestorMaterias *gm, GestorEstudiantes *ge)
+{
     int opcion;
     int idMateria;
     Materia *materia;
     char confirmacion[5];
     LinkedNode *materiasInscritas = NULL;
 
-    do {
+    do
+    {
         limpiarPantalla();
         printf("\n|| Hola ID %d (%s %s) ||\n", ObtenerID(e), ObtenerNombre(e), ObtenerApellido(e));
         printf("1. Modificar parametros\n");
@@ -572,7 +689,8 @@ void MenuAccederEstudiante(Estudiante *e, GestorMaterias *gm, GestorEstudiantes 
         opcion = leerOpcion();
         limpiarPantalla();
 
-        switch (opcion) {
+        switch (opcion)
+        {
         case 1:
             MenuModificarEstudiante(e);
             break;
@@ -581,9 +699,12 @@ void MenuAccederEstudiante(Estudiante *e, GestorMaterias *gm, GestorEstudiantes 
             idMateria = leerID("Ingrese ID de la materia a anotarse: ");
             materia = BuscarMateriaPorID(gm, idMateria);
 
-            if (materia != NULL) {
+            if (materia != NULL)
+            {
                 MatricularEstudiante(gm, idMateria, e, 0);
-            } else {
+            }
+            else
+            {
                 printf("ERROR: Materia con ID %d no encontrada.\n", idMateria);
             }
             pausar(NULL);
@@ -593,9 +714,12 @@ void MenuAccederEstudiante(Estudiante *e, GestorMaterias *gm, GestorEstudiantes 
             idMateria = leerID("Ingrese ID de la materia a rendir: ");
             materia = BuscarMateriaPorID(gm, idMateria);
 
-            if (materia != NULL) {
+            if (materia != NULL)
+            {
                 RendirMateria(e, materia);
-            } else {
+            }
+            else
+            {
                 printf("ERROR: Materia con ID %d no encontrada.\n", idMateria);
             }
             pausar(NULL);
@@ -605,15 +729,21 @@ void MenuAccederEstudiante(Estudiante *e, GestorMaterias *gm, GestorEstudiantes 
             idMateria = leerID("Ingrese ID de la materia a darse de baja: ");
             materia = BuscarMateriaPorID(gm, idMateria);
 
-            if (materia != NULL) {
+            if (materia != NULL)
+            {
                 printf("Confirma dar de baja la inscripcion de '%s' (s/n): ", materia->nombre);
                 leerCadena(confirmacion, 5);
-                if (strcmp(confirmacion, "s") == 0 || strcmp(confirmacion, "S") == 0) {
+                if (strcmp(confirmacion, "s") == 0 || strcmp(confirmacion, "S") == 0)
+                {
                     DarDeBajaInscripcion(e, materia);
-                } else {
+                }
+                else
+                {
                     printf("\n Operacion cancelada.\n");
                 }
-            } else {
+            }
+            else
+            {
                 printf("ERROR: Materia con ID %d no encontrada.\n", idMateria);
             }
             pausar(NULL);
@@ -638,7 +768,8 @@ void MenuAccederEstudiante(Estudiante *e, GestorMaterias *gm, GestorEstudiantes 
 /**
  * Implementa la opción 2: Dar de alta una materia.
  */
-void AltaMateria(GestorMaterias *gm) {
+void AltaMateria(GestorMaterias *gm)
+{
     char nombre[50];
     printf("\n--- DAR DE ALTA MATERIA ---\n");
     printf("Ingrese nombre de la materia: ");
@@ -653,7 +784,8 @@ void AltaMateria(GestorMaterias *gm) {
 /**
  * Implementa la opción 3: Modificar nombre de materia.
  */
-void ModificarNombreMateria(GestorMaterias *gm) {
+void ModificarNombreMateria(GestorMaterias *gm)
+{
     int id;
     char nuevoNombre[50];
     Materia *materia;
@@ -664,7 +796,8 @@ void ModificarNombreMateria(GestorMaterias *gm) {
 
     materia = BuscarMateriaPorID(gm, id);
 
-    if (materia == NULL) {
+    if (materia == NULL)
+    {
         printf("ERROR: Materia con ID %d no encontrada.\n", id);
         pausar(NULL);
         return;
@@ -682,7 +815,8 @@ void ModificarNombreMateria(GestorMaterias *gm) {
 /**
  * Implementa la opción 4: Eliminar materia.
  */
-void EliminarMateriaCLI(GestorMaterias *gm) {
+void EliminarMateriaCLI(GestorMaterias *gm)
+{
     int id;
     char confirmacion[5];
 
@@ -692,7 +826,8 @@ void EliminarMateriaCLI(GestorMaterias *gm) {
 
     Materia *materia = BuscarMateriaPorID(gm, id);
 
-    if (materia == NULL) {
+    if (materia == NULL)
+    {
         printf("ERROR: Materia con ID %d no encontrada.\n", id);
         pausar(NULL);
         return;
@@ -701,10 +836,13 @@ void EliminarMateriaCLI(GestorMaterias *gm) {
     printf("Confirma eliminar la materia '%s' y todas sus inscripciones (s/n): ", materia->nombre);
     leerCadena(confirmacion, 5);
 
-    if (strcmp(confirmacion, "s") == 0 || strcmp(confirmacion, "S") == 0) {
+    if (strcmp(confirmacion, "s") == 0 || strcmp(confirmacion, "S") == 0)
+    {
         EliminarMateria(gm, id);
         printf("\nMateria eliminada correctamente.\n");
-    } else {
+    }
+    else
+    {
         printf("\n Operacion cancelada.\n");
     }
     pausar(NULL);
@@ -717,7 +855,8 @@ void EliminarMateriaCLI(GestorMaterias *gm) {
 /**
  * Menú de estadísticas (Opción 3 del menú principal).
  */
-void MenuEstadisticas(GestorEstudiantes *ge, GestorMaterias *gm) {
+void MenuEstadisticas(GestorEstudiantes *ge, GestorMaterias *gm)
+{
     limpiarPantalla();
     printf("\n||              BIENVENIDO a las estadisticas             ||\n");
 
@@ -726,7 +865,8 @@ void MenuEstadisticas(GestorEstudiantes *ge, GestorMaterias *gm) {
 
     MostrarPromedioAprobadosPorMateria(gm);
 
-    if (stats != NULL) {
+    if (stats != NULL)
+    {
         free(stats);
     }
 
@@ -736,10 +876,12 @@ void MenuEstadisticas(GestorEstudiantes *ge, GestorMaterias *gm) {
 /**
  * Menú de gestión de materias (Opción 2 del menú principal).
  */
-void MenuGestorMaterias(GestorMaterias *gm) {
+void MenuGestorMaterias(GestorMaterias *gm)
+{
     int opcion;
 
-    do {
+    do
+    {
         limpiarPantalla();
         printf("\n||              BIENVENIDO al gestor de materias             ||\n");
         printf("1. Ver materias disponibles\n");
@@ -752,7 +894,8 @@ void MenuGestorMaterias(GestorMaterias *gm) {
         opcion = leerOpcion();
         limpiarPantalla();
 
-        switch (opcion) {
+        switch (opcion)
+        {
         case 1:
             MostrarMateriasDisponibles(gm);
             pausar(NULL);
@@ -778,12 +921,14 @@ void MenuGestorMaterias(GestorMaterias *gm) {
 /**
  * Menú de gestión de estudiantes (Opción 1 del menú principal).
  */
-void MenuGestorEstudiantes(GestorEstudiantes *ge, GestorMaterias *gm) {
+void MenuGestorEstudiantes(GestorEstudiantes *ge, GestorMaterias *gm)
+{
     int opcion;
     int id;
     Estudiante *estudiante;
 
-    do {
+    do
+    {
         limpiarPantalla();
         printf("\n||              BIENVENIDO al gestor de estudiantes             ||\n");
         printf("1. Ver Estudiantes\n");
@@ -797,7 +942,8 @@ void MenuGestorEstudiantes(GestorEstudiantes *ge, GestorMaterias *gm) {
         opcion = leerOpcion();
         limpiarPantalla();
 
-        switch (opcion) {
+        switch (opcion)
+        {
         case 1:
             MostrarEstudiantesLista(ge);
             pausar(NULL);
@@ -808,9 +954,12 @@ void MenuGestorEstudiantes(GestorEstudiantes *ge, GestorMaterias *gm) {
         case 3:
             id = leerID("Ingrese ID de estudiante: ");
             estudiante = BuscarEstudianteID(ge, id);
-            if (estudiante != NULL) {
+            if (estudiante != NULL)
+            {
                 MenuAccederEstudiante(estudiante, gm, ge);
-            } else {
+            }
+            else
+            {
                 printf("ERROR: Estudiante con ID %d no encontrado.\n", id);
                 pausar(NULL);
             }
@@ -830,11 +979,76 @@ void MenuGestorEstudiantes(GestorEstudiantes *ge, GestorMaterias *gm) {
     } while (opcion != 6);
 }
 
-void MenuPrincipal(GestorEstudiantes *ge, GestorMaterias *gm) {
+// void MenuPrincipal(GestorEstudiantes *ge, GestorMaterias *gm) {
+//     int opcion;
+//     int cantidad;
+
+//     do {
+//         limpiarPantalla();
+//         printf("\n// Sistema de estudiantes de ingenieria en computacion - Los C-Renitos //\n");
+//         printf("||              BIENVENIDO                ||\n");
+//         printf("1. Gestionar estudiantes\n");
+//         printf("2. Gestionar materias\n");
+//         printf("3. Estadisticas generales\n");
+//         printf("4. Generar estudiantes aleatorios\n");
+//         printf("5. Generar materias\n");
+//         printf("6. Salir del sistema\n");
+//         printf("=============================================\n");
+
+//         opcion = leerOpcion();
+//         limpiarPantalla();
+
+//         switch (opcion) {
+//         case 1:
+//             MenuGestorEstudiantes(ge, gm);
+//             break;
+//         case 2:
+//             MenuGestorMaterias(gm);
+//             break;
+//         case 3:
+//             MenuEstadisticas(ge, gm);
+//             break;
+//         case 4:
+//             printf("\n--- GENERAR ESTUDIANTES ALEATORIOS ---\n");
+//             printf("Ingrese la cantidad de estudiantes a generar: ");
+//             cantidad = leerEntero();
+
+//             if (cantidad > 0) {
+//                 GenerarEstudiantesAleatorios(ge, gm, cantidad);
+//             } else {
+//                 printf("La cantidad debe ser mayor a cero.\n");
+//             }
+//             pausar(NULL);
+//             break;
+//         case 5:
+//             printf("\n--- GENERAR MATERIAS ---\n");
+//             if (gm->head_materias != NULL) {
+//                 printf("\n Ya existen materias en la plataforma.\n");
+//                 pausar(NULL);
+//                 break;
+//             }
+//             GenerarMateriasAleatorias(gm);
+//             printf("\n Se generaron %d materias.\n", 30);
+
+//             pausar(NULL);
+//             break;
+//         case 6:
+//             printf("\nGracias por usar Los C-Renitos! Cerrando sistema...\n");
+//             break;
+//         default:
+//             printf(" Opcion invalida. Intente de nuevo.\n");
+//             pausar(NULL);
+//         }
+//     } while (opcion != 6);
+// }
+
+void MenuPrincipal(GestorEstudiantes *ge, GestorMaterias *gm)
+{
     int opcion;
     int cantidad;
 
-    do {
+    do
+    {
         limpiarPantalla();
         printf("\n// Sistema de estudiantes de ingenieria en computacion - Los C-Renitos //\n");
         printf("||              BIENVENIDO                ||\n");
@@ -843,13 +1057,15 @@ void MenuPrincipal(GestorEstudiantes *ge, GestorMaterias *gm) {
         printf("3. Estadisticas generales\n");
         printf("4. Generar estudiantes aleatorios\n");
         printf("5. Generar materias\n");
-        printf("6. Salir del sistema\n");
+        printf("6. Ejecutar casos de prueba\n");
+        printf("7. Salir del sistema\n");
         printf("=============================================\n");
 
         opcion = leerOpcion();
         limpiarPantalla();
 
-        switch (opcion) {
+        switch (opcion)
+        {
         case 1:
             MenuGestorEstudiantes(ge, gm);
             break;
@@ -864,16 +1080,20 @@ void MenuPrincipal(GestorEstudiantes *ge, GestorMaterias *gm) {
             printf("Ingrese la cantidad de estudiantes a generar: ");
             cantidad = leerEntero();
 
-            if (cantidad > 0) {
+            if (cantidad > 0)
+            {
                 GenerarEstudiantesAleatorios(ge, gm, cantidad);
-            } else {
+            }
+            else
+            {
                 printf("La cantidad debe ser mayor a cero.\n");
             }
             pausar(NULL);
             break;
         case 5:
             printf("\n--- GENERAR MATERIAS ---\n");
-            if (gm->head_materias != NULL) {
+            if (gm->head_materias != NULL)
+            {
                 printf("\n Ya existen materias en la plataforma.\n");
                 pausar(NULL);
                 break;
@@ -884,11 +1104,15 @@ void MenuPrincipal(GestorEstudiantes *ge, GestorMaterias *gm) {
             pausar(NULL);
             break;
         case 6:
+            EjecutarCasosPrueba(ge, gm);
+            pausar(NULL);
+            break;
+        case 7:
             printf("\nGracias por usar Los C-Renitos! Cerrando sistema...\n");
             break;
         default:
             printf(" Opcion invalida. Intente de nuevo.\n");
             pausar(NULL);
         }
-    } while (opcion != 6);
+    } while (opcion != 7);
 }
