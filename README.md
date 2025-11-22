@@ -1,5 +1,5 @@
 # los-C-renitos
-Integrantes: Arbo Milena, Aguirre Nahuel, Castañeda Rodrigo, Piancatelli Hernan
+Integrantes: Arbo Damasco Milena, Aguirre Nahuel, Castañeda Rodrigo, Piancatelli Hernan
 
 
 // Sistema de estudiantes de ingenieria en computacion - Los C-Renitos //
